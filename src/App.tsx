@@ -8,7 +8,8 @@ import ProgressPage from './pages/ProgressPage';
 import ResourcesPage from './pages/ResourcesPage';
 import { useProgress } from './lib/useProgress';
 import { WEEKS } from './data/weeks';
-import { currentWeekNumber } from './lib/dates';
+import { currentWeekNumber, fromKey, setPlanStart } from './lib/dates';
+import OnboardingPage from './pages/OnboardingPage';
 import { Logo, PlanIcon, PracticeIcon, ProgressIcon, ResourcesIcon, TodayIcon, TutorIcon } from './components/icons';
 
 const NAV = [
@@ -30,12 +31,21 @@ function nextCheck() {
 export default function App() {
   const { pathname } = useLocation();
   const progress = useProgress(); // el progreso vive aquí y se comparte con las páginas
+  const { settings } = progress.state;
+
+  // Cada persona tiene su propio inicio de plan: se configura antes de dibujar las páginas
+  setPlanStart(fromKey(settings.planStart));
   const check = nextCheck();
 
   // Al cambiar de sección, vuelve arriba
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, [pathname]);
+
+  // Primera visita (o "cambiar mi ruta"): mostrar el onboarding
+  if (!settings.onboarded) {
+    return <OnboardingPage initial={settings} onFinish={(next) => progress.updateSettings(next)} />;
+  }
 
   return (
     <div className="app">
@@ -56,9 +66,19 @@ export default function App() {
           <div className="sidebar-card">
             <p className="label">Próximo control</p>
             <p style={{ marginTop: 6, fontWeight: 600 }}>EF SET en la semana {check.week}</p>
-            <p className="muted small">{check.weeksLeft === 0 ? '¡Es esta semana!' : `Faltan ${check.weeksLeft} semanas`}</p>
+            <p className="muted small">{check.weeksLeft === 0 ? '¡Es esta semana!' : check.weeksLeft === 1 ? 'Falta 1 semana' : `Faltan ${check.weeksLeft} semanas`}</p>
           </div>
         )}
+        <button
+          type="button"
+          className="sidebar-link"
+          style={{ marginTop: check ? 0 : 'auto', textAlign: 'left', padding: '0 8px' }}
+          onClick={() => {
+            if (confirm('¿Quieres cambiar tu meta, nivel o fecha de examen? Tu progreso se mantiene.')) progress.updateSettings({ onboarded: false });
+          }}
+        >
+          Cambiar mi ruta
+        </button>
       </aside>
 
       <main className="content">

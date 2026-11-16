@@ -77,7 +77,7 @@ export const ROUTINE: Record<PhaseKey, RoutineTask[][]> = {
     ],
     [
       {
-        "text": "Conversación con Claude",
+        "text": "Conversación con el tutor IA",
         "resource": "claude",
         "minutes": 15
       },
@@ -178,7 +178,7 @@ export const ROUTINE: Record<PhaseKey, RoutineTask[][]> = {
     ],
     [
       {
-        "text": "Conversación con Claude",
+        "text": "Conversación con el tutor IA",
         "resource": "claude",
         "minutes": 15
       },
@@ -274,7 +274,7 @@ export const ROUTINE: Record<PhaseKey, RoutineTask[][]> = {
     ],
     [
       {
-        "text": "Speaking Part 2 con Claude (2 minutos)",
+        "text": "Speaking Part 2 con el tutor IA (2 minutos)",
         "resource": "claude",
         "minutes": 15
       },
@@ -360,7 +360,7 @@ export const ROUTINE: Record<PhaseKey, RoutineTask[][]> = {
     ],
     [
       {
-        "text": "Simulacro de speaking con Claude",
+        "text": "Simulacro de speaking con el tutor IA",
         "resource": "claude",
         "minutes": 20
       },

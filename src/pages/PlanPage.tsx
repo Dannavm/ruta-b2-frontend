@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { PHASES, PHASE_ORDER } from '../data/phases';
-import { PLAN_START } from '../data/weeks';
-import { TOTAL_WEEKS, addDays, formatLong, formatShort, getWeek, toKey, today, weekNumberFor } from '../lib/dates';
+import { TOTAL_WEEKS, addDays, getPlanStart, formatLong, formatShort, getWeek, toKey, today, weekNumberFor } from '../lib/dates';
 import { activityLevel } from '../lib/streak';
 import type { Progress } from '../lib/useProgress';
 
@@ -13,6 +12,7 @@ export default function PlanPage({ progress }: Props) {
   const { state } = progress;
   const currentWeek = weekNumberFor(today());
   const currentRef = useRef<HTMLDivElement>(null);
+  const planStart = getPlanStart();
 
   // Al abrir el plan, centra la semana actual en la pantalla.
   // setTimeout espera a que App termine su propio scroll hacia arriba.
@@ -29,8 +29,8 @@ export default function PlanPage({ progress }: Props) {
     <>
       <h2>Plan semana a semana</h2>
       <p className="lede">
-        {TOTAL_WEEKS} semanas, del {formatLong(PLAN_START)} al {formatLong(addDays(PLAN_START, TOTAL_WEEKS * 7 - 1))}. Cada semana
-        tiene un tema de gramática, uno de vocabulario y una habilidad. Las semanas ligeras coinciden con feriados en Ecuador.
+        {TOTAL_WEEKS} semanas, del {formatLong(planStart)} al {formatLong(addDays(planStart, TOTAL_WEEKS * 7 - 1))}. Cada semana
+        tiene un tema de gramática, uno de vocabulario y una habilidad. Las semanas ligeras sirven para descansar y repasar.
       </p>
 
       <div className="panel" style={{ marginBottom: 26 }}>

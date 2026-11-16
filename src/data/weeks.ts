@@ -11,9 +11,6 @@ export interface Week {
   flag?: 'efset' | 'light'; // semana de EF SET o semana ligera
 }
 
-// Lunes 16 de noviembre de 2026 (los meses en JavaScript empiezan en 0)
-export const PLAN_START = new Date(2026, 10, 16);
-export const DEFAULT_EXAM_DATE = '2027-08-28';
 
 export const WEEKS: Week[] = [
   {
@@ -62,7 +59,7 @@ export const WEEKS: Week[] = [
     "goals": [
       "Formular 10 preguntas con did / was / were",
       "Describir tu barrio cuando eras niña",
-      "Conversar 10 minutos con Claude sobre tu infancia"
+      "Conversar 10 minutos con el tutor IA sobre tu infancia"
     ]
   },
   {
@@ -79,27 +76,27 @@ export const WEEKS: Week[] = [
   },
   {
     "phase": "A2",
-    "title": "Semana ligera: Navidad",
+    "title": "Semana ligera: repaso y descanso",
     "grammar": "Repaso de pasado simple",
     "vocab": "Celebraciones y familia",
     "skill": "Ver contenido en inglés por gusto",
     "goals": [
       "Hacer al menos 3 prácticas diarias",
       "Ver una película o 2 episodios con subtítulos en inglés",
-      "Escribir 5 oraciones sobre cómo celebras la Navidad"
+      "Escribir 5 oraciones sobre una celebración de tu familia"
     ],
     "flag": "light"
   },
   {
     "phase": "A2",
-    "title": "Semana ligera: metas 2027",
+    "title": "Semana ligera: tus metas",
     "grammar": "Going to para planes",
     "vocab": "Metas y propósitos",
     "skill": "Escribir tus metas del año",
     "goals": [
-      "Escribir 5 metas de 2027 usando going to",
+      "Escribir 5 metas para este año usando going to",
       "Hacer al menos 3 prácticas diarias",
-      "Repasar tus errores de diciembre"
+      "Repasar los errores de las últimas semanas"
     ],
     "flag": "light"
   },
@@ -124,7 +121,7 @@ export const WEEKS: Week[] = [
     "goals": [
       "Comparar dos laptops o dos ciudades en 6 oraciones",
       "Usar bien more / -er / the most",
-      "Hablar 2 minutos con Claude comparando Quito y otra ciudad"
+      "Hablar 2 minutos con el tutor IA comparando Quito y otra ciudad"
     ]
   },
   {
@@ -161,7 +158,7 @@ export const WEEKS: Week[] = [
     "goals": [
       "Hacer 3 prácticas extra de repaso",
       "Escribir un email informal de 80–100 palabras y revisarlo en Write & Improve",
-      "Conversar 15 minutos con Claude sobre tu vida y tus planes"
+      "Conversar 15 minutos con el tutor IA sobre tu vida y tus planes"
     ]
   },
   {
@@ -173,7 +170,7 @@ export const WEEKS: Week[] = [
     "goals": [
       "Elegir bien entre present perfect y past simple",
       "Contar desde cuándo estudias y trabajas (for / since)",
-      "Semana de Carnaval: si viajas, haz solo la práctica diaria"
+      "Semana ligera: si tienes poco tiempo, haz solo la práctica diaria"
     ],
     "flag": "light"
   },
@@ -210,7 +207,7 @@ export const WEEKS: Week[] = [
     "goals": [
       "Responder 5 preguntas What would you do if…?",
       "Distinguir primer y segundo condicional",
-      "Conversar con Claude sobre un problema de tu ciudad"
+      "Conversar con el tutor IA sobre un problema de tu ciudad"
     ]
   },
   {
@@ -239,7 +236,7 @@ export const WEEKS: Week[] = [
   },
   {
     "phase": "B1",
-    "title": "Semana ligera: Semana Santa",
+    "title": "Semana ligera: escucha por gusto",
     "grammar": "Repaso de condicionales y pasiva",
     "vocab": "Repaso",
     "skill": "Escuchar por gusto",
@@ -259,7 +256,7 @@ export const WEEKS: Week[] = [
     "goals": [
       "Usar enjoy -ing, decide to, want to correctamente",
       "Escribir un párrafo de opinión de 120 palabras",
-      "Dar tu opinión 2 minutos con Claude sobre el trabajo remoto"
+      "Dar tu opinión 2 minutos con el tutor IA sobre el trabajo remoto"
     ]
   },
   {
@@ -308,7 +305,7 @@ export const WEEKS: Week[] = [
     "goals": [
       "Aprender 20 phrasal verbs de trabajo",
       "Usar however y although en un texto",
-      "Simular con Claude una reunión de equipo"
+      "Simular con el tutor IA una reunión de equipo"
     ]
   },
   {
@@ -332,7 +329,7 @@ export const WEEKS: Week[] = [
     "goals": [
       "Usar el tercer condicional sin dudar",
       "Escribir 5 oraciones con I wish / if only",
-      "Conversar con Claude sobre una decisión importante de tu vida"
+      "Conversar con el tutor IA sobre una decisión importante de tu vida"
     ]
   },
   {
@@ -392,7 +389,7 @@ export const WEEKS: Week[] = [
     "goals": [
       "Hacer el EF SET de control #4 y registrarlo",
       "Usar 3 estructuras de énfasis en un texto",
-      "Conversar con Claude sobre la educación en Ecuador"
+      "Conversar con el tutor IA sobre la educación en tu país"
     ],
     "flag": "efset"
   },
@@ -415,8 +412,8 @@ export const WEEKS: Week[] = [
     "vocab": "Ciencia e investigación",
     "skill": "Lectura cronometrada",
     "goals": [
-      "Decidir tu examen (IELTS o DET) según los requisitos de tus programas",
-      "Reservar fecha de examen y verificar sedes en Ecuador",
+      "Decidir tu examen según lo que pide tu universidad, beca o empresa",
+      "Reservar fecha de examen y verificar sedes en tu ciudad",
       "Hacer una lectura cronometrada de 20 minutos"
     ]
   },
@@ -489,7 +486,7 @@ export const WEEKS: Week[] = [
     "skill": "Speaking partes 1, 2 y 3",
     "goals": [
       "Grabarte en las 3 partes del speaking cada día",
-      "Practicar con Claude preguntas tipo examen",
+      "Practicar con el tutor IA preguntas tipo examen",
       "Usar expresiones como That’s an interesting question…"
     ]
   },

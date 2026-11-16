@@ -119,7 +119,7 @@ export const RESOURCES: Record<string, Resource> = {
     "description": "Test gratuito de 50 minutos con nivel MCER. Tu control cada 2–3 meses."
   },
   "claude": {
-    "name": "Conversación con Claude",
+    "name": "Tutor IA",
     "url": "/conversation",
     "description": "Práctica de speaking escrita o por voz, adaptada a tu semana."
   }
