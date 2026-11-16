@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import TodayPage from './pages/TodayPage';
 import PlanPage from './pages/PlanPage';
 import PracticePage from './pages/PracticePage';
@@ -7,56 +7,82 @@ import ConversationPage from './pages/ConversationPage';
 import ProgressPage from './pages/ProgressPage';
 import ResourcesPage from './pages/ResourcesPage';
 import { useProgress } from './lib/useProgress';
+import { WEEKS } from './data/weeks';
+import { currentWeekNumber } from './lib/dates';
+import { Logo, PlanIcon, PracticeIcon, ProgressIcon, ResourcesIcon, TodayIcon, TutorIcon } from './components/icons';
 
-const TABS = [
-  { to: '/', label: 'Hoy' },
-  { to: '/plan', label: 'Plan semanal' },
-  { to: '/practice', label: 'Práctica' },
-  { to: '/conversation', label: 'Conversación' },
-  { to: '/progress', label: 'Progreso' },
-  { to: '/resources', label: 'Recursos' },
+const NAV = [
+  { to: '/', label: 'Hoy', icon: TodayIcon, mobile: true },
+  { to: '/plan', label: 'Mi plan', icon: PlanIcon, mobile: true },
+  { to: '/practice', label: 'Práctica', icon: PracticeIcon, mobile: true },
+  { to: '/conversation', label: 'Tutor IA', icon: TutorIcon, mobile: true },
+  { to: '/progress', label: 'Progreso', icon: ProgressIcon, mobile: true },
+  { to: '/resources', label: 'Recursos', icon: ResourcesIcon, mobile: false }, // en celular se abre desde Hoy
 ];
+
+/** Próxima semana con control EF SET, desde la semana actual */
+function nextCheck() {
+  const current = currentWeekNumber();
+  const index = WEEKS.findIndex((w, i) => i + 1 >= current && w.flag === 'efset');
+  return index === -1 ? null : { week: index + 1, weeksLeft: index + 1 - current };
+}
 
 export default function App() {
   const { pathname } = useLocation();
   const progress = useProgress(); // el progreso vive aquí y se comparte con las páginas
+  const check = nextCheck();
 
-  // Al cambiar de pestaña, vuelve arriba
+  // Al cambiar de sección, vuelve arriba
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, [pathname]);
 
   return (
-    <>
-      <header className="top">
-        <div className="wrap">
-          <h1>Mi ruta al B2</h1>
-          <p className="sub">De A2 a un certificado B2 para tu maestría en Europa. Treinta minutos al día, cada día cuenta.</p>
-        </div>
-      </header>
-
-      <nav className="tabs" aria-label="Secciones">
-        <div className="wrap">
-          {TABS.map((tab) => (
-            // NavLink agrega aria-current="page" a la pestaña activa; el CSS la subraya
-            <NavLink key={tab.to} to={tab.to} end={tab.to === '/'}>
-              {tab.label}
+    <div className="app">
+      <aside className="sidebar">
+        <Link to="/" className="brand">
+          <Logo />
+          <span>Ruta B2</span>
+        </Link>
+        <nav className="nav" aria-label="Secciones">
+          {NAV.map(({ to, label, icon: IconComponent }) => (
+            <NavLink key={to} to={to} end={to === '/'}>
+              <IconComponent />
+              {label}
             </NavLink>
           ))}
-        </div>
-      </nav>
+        </nav>
+        {check && (
+          <div className="sidebar-card">
+            <p className="label">Próximo control</p>
+            <p style={{ marginTop: 6, fontWeight: 600 }}>EF SET en la semana {check.week}</p>
+            <p className="muted small">{check.weeksLeft === 0 ? '¡Es esta semana!' : `Faltan ${check.weeksLeft} semanas`}</p>
+          </div>
+        )}
+      </aside>
 
-      <main className="wrap">
-        <Routes>
-          <Route path="/" element={<TodayPage progress={progress} />} />
-          <Route path="/plan" element={<PlanPage />} />
-          <Route path="/practice" element={<PracticePage />} />
-          <Route path="/conversation" element={<ConversationPage />} />
-          <Route path="/progress" element={<ProgressPage />} />
-          <Route path="/resources" element={<ResourcesPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+      <main className="content">
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<TodayPage progress={progress} />} />
+            <Route path="/plan" element={<PlanPage progress={progress} />} />
+            <Route path="/practice" element={<PracticePage />} />
+            <Route path="/conversation" element={<ConversationPage />} />
+            <Route path="/progress" element={<ProgressPage />} />
+            <Route path="/resources" element={<ResourcesPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
       </main>
-    </>
+
+      <nav className="bottom-nav" aria-label="Secciones">
+        {NAV.filter((item) => item.mobile).map(({ to, label, icon: IconComponent }) => (
+          <NavLink key={to} to={to} end={to === '/'}>
+            <IconComponent size={22} />
+            {label}
+          </NavLink>
+        ))}
+      </nav>
+    </div>
   );
 }

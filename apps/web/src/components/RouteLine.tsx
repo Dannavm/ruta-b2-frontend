@@ -1,5 +1,4 @@
 import { PHASES, PHASE_ORDER } from '../data/phases';
-import { WEEKS } from '../data/weeks';
 import { TOTAL_WEEKS, daysBetween, formatShort, fromKey, getWeek, today } from '../lib/dates';
 
 interface Props {
@@ -7,63 +6,62 @@ interface Props {
   examDate: string; // "2027-08-28"
 }
 
-/** La línea de tren: 4 fases, una estación por semana y el examen al final */
+/** La línea de ruta: 4 fases que se iluminan a medida que avanzas, y el examen al final */
 export default function RouteLine({ weekNumber, examDate }: Props) {
   const exam = fromKey(examDate);
   const daysLeft = Math.max(daysBetween(today(), exam), 0);
+  const week = getWeek(weekNumber);
+  const phase = PHASES[week.phase];
 
-  let where: string;
-  if (weekNumber < 1) where = 'Tu plan empieza el lunes. Hoy ya puedes hacer tu primera práctica.';
-  else if (weekNumber > TOTAL_WEEKS) where = 'Llegaste a la última estación. ¡Mucho éxito en tu examen!';
-  else where = `Semana ${weekNumber} de ${TOTAL_WEEKS}: ${getWeek(weekNumber).title}`;
+  let title: string;
+  if (weekNumber < 1) title = 'Tu ruta empieza el lunes';
+  else if (weekNumber > TOTAL_WEEKS) title = '¡Llegaste a la última estación!';
+  else title = `Semana ${weekNumber} de ${TOTAL_WEEKS}: ${week.title}`;
 
   return (
-    <div className="route">
-      <div className="route-head">
-        <div className="where">{where}</div>
-        <div className="count">
+    <section className="panel" aria-label="Tu ruta">
+      <div className="route-top">
+        <div>
+          <p className="label" style={{ color: phase.color }}>
+            Fase {phase.number} / {phase.name}
+          </p>
+          <h2>{title}</h2>
+        </div>
+        <div className="countdown">
           <b>{daysLeft}</b>
-          <span>
-            días para tu examen oficial ({formatShort(exam)} {exam.getFullYear()})
-          </span>
+          <span>días para tu examen ({formatShort(exam)} {exam.getFullYear()})</span>
         </div>
       </div>
 
-      <div className="line" aria-label={`Recorrido de ${TOTAL_WEEKS} semanas dividido en 4 fases`}>
+      <div className="track" role="img" aria-label={`Ruta de ${TOTAL_WEEKS} semanas; vas en la semana ${Math.max(weekNumber, 0)}`}>
         {PHASE_ORDER.map((key) => {
-          const phase = PHASES[key];
-          const weeks = Array.from({ length: phase.toWeek - phase.fromWeek + 1 }, (_, i) => phase.fromWeek + i);
+          const p = PHASES[key];
+          const length = p.toWeek - p.fromWeek + 1;
+          // Qué parte de la fase ya recorriste (0 a 100 %)
+          const done = Math.min(Math.max((weekNumber - p.fromWeek + 0.5) / length, 0), 1) * 100;
+          const isHere = weekNumber >= p.fromWeek && weekNumber <= p.toWeek;
           return (
-            <div key={key} className="seg" style={{ flex: weeks.length, background: phase.color, color: phase.color }}>
-              {weeks.map((w) => {
-                const classes = ['dot'];
-                if (w < weekNumber) classes.push('done');
-                if (w === weekNumber) classes.push('here');
-                if (WEEKS[w - 1].flag === 'efset' && w !== weekNumber) classes.push('test');
-                return (
-                  <i key={w} className={classes.join(' ')} title={`Semana ${w}`}>
-                    {w === weekNumber && <span className="here-tag">Estás aquí</span>}
-                  </i>
-                );
-              })}
+            <div key={key} className="track-seg" style={{ flex: length, '--c': p.color } as React.CSSProperties}>
+              {done > 0 && <i style={{ width: `${isHere ? done : 100}%` }} />}
+              {isHere && <span className="track-here" style={{ left: `${done}%` }} />}
             </div>
           );
         })}
-        <span className="endstop" title="Examen" />
+        <span className="track-end" title="Examen" />
       </div>
 
-      <div className="legend">
+      <div className="track-labels">
         {PHASE_ORDER.map((key) => {
-          const phase = PHASES[key];
+          const p = PHASES[key];
+          const status = weekNumber > p.toWeek ? 'completada' : weekNumber >= p.fromWeek ? 'en curso' : '';
           return (
-            <div key={key} style={{ flex: phase.toWeek - phase.fromWeek + 1, color: phase.color }}>
-              Fase {phase.number}
-              <small>{phase.name}</small>
-            </div>
+            <span key={key} style={{ flex: p.toWeek - p.fromWeek + 1, color: p.color }}>
+              <b>{key === 'EX' ? 'EXAMEN' : key}</b> {status && <span className="muted">{status}</span>}
+            </span>
           );
         })}
-        <div style={{ flex: 'none', width: 24 }} />
+        <span style={{ width: 18, flex: 'none' }} />
       </div>
-    </div>
+    </section>
   );
 }

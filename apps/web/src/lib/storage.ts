@@ -25,6 +25,7 @@ export interface EfsetResult {
 export type ExamType = 'ielts' | 'det' | 'undecided';
 
 export interface Settings {
+  name: string; // cómo saludar a la persona; vacío = sin nombre
   examDate: string;
   examType: ExamType;
 }
@@ -45,7 +46,7 @@ export const defaultState = (): ProgressState => ({
   days: {},
   practices: [],
   efset: [],
-  settings: { examDate: DEFAULT_EXAM_DATE, examType: 'ielts' },
+  settings: { name: '', examDate: DEFAULT_EXAM_DATE, examType: 'ielts' },
 });
 
 /** Combina lo guardado con los valores por defecto, por si faltan campos */
