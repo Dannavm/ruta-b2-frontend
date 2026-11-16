@@ -1,122 +1,62 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useEffect } from 'react';
+import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import TodayPage from './pages/TodayPage';
+import PlanPage from './pages/PlanPage';
+import PracticePage from './pages/PracticePage';
+import ConversationPage from './pages/ConversationPage';
+import ProgressPage from './pages/ProgressPage';
+import ResourcesPage from './pages/ResourcesPage';
+import { useProgress } from './lib/useProgress';
 
-function App() {
-  const [count, setCount] = useState(0)
+const TABS = [
+  { to: '/', label: 'Hoy' },
+  { to: '/plan', label: 'Plan semanal' },
+  { to: '/practice', label: 'Práctica' },
+  { to: '/conversation', label: 'Conversación' },
+  { to: '/progress', label: 'Progreso' },
+  { to: '/resources', label: 'Recursos' },
+];
+
+export default function App() {
+  const { pathname } = useLocation();
+  const progress = useProgress(); // el progreso vive aquí y se comparte con las páginas
+
+  // Al cambiar de pestaña, vuelve arriba
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [pathname]);
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+      <header className="top">
+        <div className="wrap">
+          <h1>Mi ruta al B2</h1>
+          <p className="sub">De A2 a un certificado B2 para tu maestría en Europa. Treinta minutos al día, cada día cuenta.</p>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </header>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      <nav className="tabs" aria-label="Secciones">
+        <div className="wrap">
+          {TABS.map((tab) => (
+            // NavLink agrega aria-current="page" a la pestaña activa; el CSS la subraya
+            <NavLink key={tab.to} to={tab.to} end={tab.to === '/'}>
+              {tab.label}
+            </NavLink>
+          ))}
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      </nav>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <main className="wrap">
+        <Routes>
+          <Route path="/" element={<TodayPage progress={progress} />} />
+          <Route path="/plan" element={<PlanPage />} />
+          <Route path="/practice" element={<PracticePage />} />
+          <Route path="/conversation" element={<ConversationPage />} />
+          <Route path="/progress" element={<ProgressPage />} />
+          <Route path="/resources" element={<ResourcesPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </main>
     </>
-  )
+  );
 }
-
-export default App
