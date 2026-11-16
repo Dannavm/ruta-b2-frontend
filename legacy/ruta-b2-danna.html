@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mi ruta al B2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDF1F5; --surface:#FFFFFF; --ink:#13203A; --muted:#55637B; --line:#D2DAE4;
+  --a2:#0E8577; --b1:#B97E00; --b2:#2D57C9; --ex:#BE2F4A;
+  --ok:#0E8577; --bad:#BE2F4A; --hl:#FFF2C7;
+  --font:"Archivo", "Helvetica Neue", Arial, system-ui, sans-serif;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D1423; --surface:#151F34; --ink:#E5EBF4; --muted:#9AA7BE; --line:#27344E;
+    --a2:#3CC4B2; --b1:#F0B53A; --b2:#82A0FF; --ex:#FF7590; --ok:#3CC4B2; --bad:#FF7590; --hl:#3A3214;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0D1423; --surface:#151F34; --ink:#E5EBF4; --muted:#9AA7BE; --line:#27344E;
+  --a2:#3CC4B2; --b1:#F0B53A; --b2:#82A0FF; --ex:#FF7590; --ok:#3CC4B2; --bad:#FF7590; --hl:#3A3214;
+  color-scheme: dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--b2);outline-offset:2px;border-radius:4px}
+img,svg{max-width:100%}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+/* Header */
+.top{padding:28px 0 8px}
+.top h1{font-stretch:125%;font-weight:850;font-size:clamp(2rem,6vw,3.4rem);line-height:1;letter-spacing:-.02em;margin:0}
+.top .sub{color:var(--muted);margin:.5rem 0 0;max-width:60ch}
+
+/* Tabs */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tabs .wrap::-webkit-scrollbar{display:none}
+.tabs a{flex:none;text-decoration:none;padding:14px 12px 12px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;font-stretch:90%}
+.tabs a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--ink)}
+
+main{padding:24px 0 64px}
+.view{display:none}
+.view.on{display:block}
+h2{font-stretch:118%;font-weight:800;font-size:clamp(1.5rem,3.6vw,2.1rem);line-height:1.1;margin:0 0 .4rem;letter-spacing:-.01em}
+h3{font-stretch:105%;font-weight:750;font-size:1.15rem;margin:0 0 .4rem}
+.lede{color:var(--muted);margin:0 0 1.4rem;max-width:66ch}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+
+/* Route line (hero) */
+.route{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 22px 18px;margin-bottom:22px}
+.route-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;align-items:flex-end;margin-bottom:22px}
+.route-head .where{font-stretch:112%;font-weight:800;font-size:clamp(1.25rem,3vw,1.7rem);line-height:1.15;max-width:34ch}
+.count{display:flex;align-items:baseline;gap:8px}
+.count b{font-stretch:125%;font-weight:900;font-size:clamp(2.2rem,6vw,3rem);line-height:1;color:var(--ex)}
+.count span{color:var(--muted);font-size:.9rem;max-width:12ch;line-height:1.2}
+.line{display:flex;align-items:center;gap:0;position:relative;padding:18px 0 8px}
+.seg{position:relative;display:flex;align-items:center;justify-content:space-between;height:10px;border-radius:6px;margin-right:3px}
+.seg .dot{width:6px;height:6px;border-radius:50%;background:var(--surface);opacity:.85;flex:none}
+.seg .dot.done{opacity:0}
+.seg .dot.here{width:20px;height:20px;background:var(--surface);border:5px solid currentColor;opacity:1;box-shadow:0 0 0 4px color-mix(in srgb, currentColor 25%, transparent)}
+.seg .dot.test{outline:2px solid var(--surface);background:transparent}
+.endstop{flex:none;width:22px;height:22px;border-radius:50%;border:5px solid var(--ex);background:var(--surface);margin-left:2px}
+.legend{display:flex;gap:0;margin-top:8px}
+.legend div{font-stretch:75%;font-weight:650;font-size:.82rem;line-height:1.2;padding-right:6px;overflow:hidden}
+.legend small{display:block;font-weight:400;color:var(--muted)}
+.seg .dot.here{position:relative}
+@media (max-width:560px){.seg .dot{width:3px;height:3px}.seg .dot.here{width:16px;height:16px;border-width:4px}.legend small{display:none}.endstop{width:18px;height:18px;border-width:4px}}
+.here-tag{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:.75rem;font-weight:700;white-space:nowrap;background:var(--ink);color:var(--surface);padding:1px 7px;border-radius:9px}
+
+/* Layout helpers */
+.grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:22px}
+@media (max-width:820px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.panel + .panel{margin-top:18px}
+.chip{display:inline-block;font-size:.78rem;font-weight:650;padding:2px 9px;border-radius:20px;background:color-mix(in srgb,var(--c,var(--muted)) 15%,transparent);color:var(--c,var(--muted));margin:0 6px 6px 0}
+.goals{margin:.6rem 0 0;padding-left:1.2rem}
+.goals li{margin:.3rem 0}
+.focus{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:12px 0 0;font-size:.95rem}
+.focus dt{color:var(--muted)}
+.focus dd{margin:0;font-weight:600}
+
+/* Checklist */
+.tasks{list-style:none;margin:10px 0 0;padding:0}
+.tasks li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+.tasks li:first-child{border-top:0}
+.tasks input{width:22px;height:22px;margin:2px 0 0;accent-color:var(--ok);flex:none}
+.tasks label{flex:1;cursor:pointer}
+.tasks .min{color:var(--muted);font-size:.85rem;white-space:nowrap}
+.tasks a{font-size:.85rem;color:var(--b2)}
+.done-text{text-decoration:line-through;color:var(--muted)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:11px 18px;font-weight:700;cursor:pointer;background:var(--ink);color:var(--surface);text-decoration:none;min-height:44px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.small{padding:7px 12px;min-height:36px;font-size:.9rem}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+@media (max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.stat b{display:block;font-stretch:120%;font-weight:850;font-size:1.9rem;line-height:1.1}
+.stat span{color:var(--muted);font-size:.88rem}
+
+/* Plan */
+.phase{margin:0 0 30px}
+.phase-head{border-left:6px solid var(--c);padding:4px 0 4px 14px;margin-bottom:12px}
+.phase-head h3{font-stretch:118%;font-size:1.35rem;margin:0}
+.week{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.week .num{font-stretch:75%;font-weight:800;font-size:1.6rem;line-height:1;color:var(--c)}
+.week .num small{display:block;font-size:.72rem;font-weight:500;color:var(--muted);margin-top:4px;font-stretch:90%}
+.week.current{background:color-mix(in srgb,var(--c) 9%,transparent);border-radius:10px;padding:14px 12px;margin:0 -12px}
+.week.past .num{opacity:.55}
+.week h4{margin:0 0 4px;font-size:1.05rem;font-stretch:105%}
+.week .meta{font-size:.9rem;color:var(--muted)}
+.week ul{margin:.4rem 0 0;padding-left:1.1rem;font-size:.94rem}
+
+/* Practice */
+.qcard{max-width:720px}
+.progressbar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin:10px 0 18px}
+.progressbar i{display:block;height:100%;background:var(--ink);transition:width .3s}
+.q{font-size:1.2rem;font-weight:600;margin:.4rem 0 1rem;line-height:1.45}
+.passage{background:color-mix(in srgb,var(--b2) 7%,transparent);border-left:4px solid var(--b2);padding:12px 16px;border-radius:0 10px 10px 0;margin:0 0 14px;font-size:1rem;line-height:1.65;max-width:68ch}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);cursor:pointer;min-height:44px}
+.opt:hover:not(:disabled){border-color:var(--ink)}
+.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent)}
+.opt:disabled{cursor:default}
+.answer{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);font-size:1.05rem}
+.fb{margin-top:16px;padding:14px 16px;border-radius:10px;border:1.5px solid var(--c);background:color-mix(in srgb,var(--c) 8%,transparent)}
+.fb strong{color:var(--c)}
+.fb p{margin:.3rem 0 0}
+.miss{background:var(--hl);border-radius:4px;padding:0 3px;font-weight:700}
+.result{font-stretch:125%;font-weight:900;font-size:3.2rem;line-height:1}
+
+/* Heatmap */
+.heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,14px);gap:3px;overflow-x:auto;padding-bottom:6px}
+.heat i{width:14px;height:14px;border-radius:3px;background:var(--line)}
+.heat i.l1{background:color-mix(in srgb,var(--ok) 45%,var(--line))}
+.heat i.l2{background:var(--ok)}
+.heat i.fut{background:transparent;border:1px dashed var(--line)}
+.heat i.today{outline:2px solid var(--ink)}
+
+/* Forms */
+.field{display:flex;flex-direction:column;gap:4px;font-size:.9rem;color:var(--muted)}
+.field input,.field select{padding:9px 11px;border:1.5px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink);min-height:42px}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font-weight:650;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+
+/* Resources */
+.days{display:grid;grid-template-columns:repeat(7,minmax(130px,1fr));gap:8px;overflow-x:auto;padding-bottom:6px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:.88rem}
+.day.today{border:2px solid var(--ink)}
+.day b{display:block;font-stretch:110%;margin-bottom:6px}
+.day ul{margin:0;padding-left:1rem}
+.res{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.res a.card{display:block;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.res a.card:hover{border-color:var(--ink)}
+.res a.card b{display:block;font-stretch:108%}
+.res a.card span{font-size:.9rem;color:var(--muted)}
+.seg-ctrl{display:inline-flex;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:16px;flex-wrap:wrap}
+.seg-ctrl button{border:0;background:transparent;padding:8px 14px;cursor:pointer;font-weight:600;color:var(--muted)}
+.seg-ctrl button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+
+/* Chat */
+.chat{display:flex;flex-direction:column;gap:10px;min-height:200px;max-height:58vh;overflow-y:auto;padding:4px 2px 10px}
+.bubble{max-width:84%;padding:11px 14px;border-radius:14px;white-space:pre-wrap;line-height:1.5}
+.bubble.me{align-self:flex-end;background:var(--ink);color:var(--surface);border-bottom-right-radius:4px}
+.bubble.ai{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
+.bubble .say{margin-top:6px;border:0;background:transparent;color:var(--b2);cursor:pointer;font-size:.85rem;font-weight:650;padding:0}
+.composer{display:flex;gap:8px;align-items:flex-end;margin-top:10px}
+.composer textarea{flex:1;min-height:52px;max-height:160px;resize:vertical;padding:12px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface)}
+.mic.on{background:var(--ex);color:#fff;border-color:var(--ex)}
+.promptbox{width:100%;min-height:110px;padding:10px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);font-size:.9rem}
+
+.status{font-size:.82rem;color:var(--muted);padding:20px 0 0}
+.toast{white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis;position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:10px;font-weight:600;z-index:20;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>Mi ruta al B2</h1>
+  <p class="sub">Danna, de A2 a un certificado B2 para tu maestría Erasmus Mundus. Treinta minutos al día, cada día cuenta.</p>
+</div></header>
+
+<nav class="tabs" aria-label="Secciones"><div class="wrap">
+  <a href="#hoy">Hoy</a>
+  <a href="#plan">Plan semanal</a>
+  <a href="#practica">Práctica</a>
+  <a href="#conversar">Conversación</a>
+  <a href="#progreso">Progreso</a>
+  <a href="#recursos">Recursos</a>
+</div></nav>
+
+<main class="wrap">
+  <section class="view" id="v-hoy"></section>
+  <section class="view" id="v-plan"></section>
+  <section class="view" id="v-practica"></section>
+  <section class="view" id="v-conversar"></section>
+  <section class="view" id="v-progreso"></section>
+  <section class="view" id="v-recursos"></section>
+  <p class="status" id="status">Cargando tu progreso…</p>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============ Datos del plan ============ */
+const START = new Date(2026, 10, 16); // lunes 16 de noviembre de 2026
+const DAY = 86400000;
+const PHASES = {
+  A2: {n:1, name:"A2 sólido", c:"var(--a2)", from:1, to:12, desc:"Asentar la base: hablar de ti, de tu día y de tu pasado con frases simples pero correctas.", target:"Meta al cerrar: EF SET 35–40 (A2 alto)."},
+  B1: {n:2, name:"B1 independiente", c:"var(--b1)", from:13, to:25, desc:"Contar historias, dar opiniones y entender audios cotidianos sin traducir todo mentalmente.", target:"Meta al cerrar: EF SET 45–50 (B1)."},
+  B2: {n:3, name:"B2 académico", c:"var(--b2)", from:26, to:35, desc:"Argumentar, leer textos académicos y escribir ensayos con estructura clara.", target:"Meta al cerrar: EF SET 51 o más (B2)."},
+  EX: {n:4, name:"Preparación del examen", c:"var(--ex)", from:36, to:41, desc:"Simulacros cronometrados, formato del examen elegido y tu lista personal de errores.", target:"Meta: B2 certificado (por ejemplo IELTS Academic 6.0–6.5, o lo que pida tu programa)."}
+};
+// [fase, título, gramática, vocabulario, habilidad, objetivos, banderas]
+const WEEKS = [
+ ["A2","Punto de partida","Presente simple y verbo to be","Datos personales, estudios y trabajo","Presentarte en 1 minuto",["Hacer el EF SET inicial y registrar tu puntaje en Progreso","Grabarte presentándote: nombre, edad, ciudad, carrera y trabajo","Completar al menos 4 prácticas diarias"],"efset"],
+ ["A2","Tu día a día","Presente continuo vs. presente simple","Rutinas y trabajo","Describir tu rutina",["Usar presente simple para hábitos y continuo para lo que pasa ahora","Escribir 6 oraciones sobre tu rutina laboral","Escuchar 3 audios cortos A2 sin subtítulos en español"]],
+ ["A2","El fin de semana","Pasado simple: regulares e irregulares","Tiempo libre y actividades","Contar qué hiciste",["Memorizar 25 verbos irregulares frecuentes","Contar tu fin de semana en voz alta durante 1 minuto","Leer 2 noticias de nivel 1 en News in Levels"]],
+ ["A2","Preguntas sobre el pasado","Pasado: preguntas y negativas; there was / there were","La ciudad y sus lugares","Hacer preguntas",["Formular 10 preguntas con did / was / were","Describir tu barrio cuando eras niña","Conversar 10 minutos con Claude sobre tu infancia"]],
+ ["A2","De compras","Contables e incontables: some, any, much, many","Comida y compras","Pedir y preguntar precios",["Distinguir much / many sin dudar","Escribir tu lista del súper en inglés con cantidades","Ver un video de Easy English sobre comida"]],
+ ["A2","Semana ligera: Navidad","Repaso de pasado simple","Celebraciones y familia","Ver contenido en inglés por gusto",["Hacer al menos 3 prácticas diarias","Ver una película o 2 episodios con subtítulos en inglés","Escribir 5 oraciones sobre cómo celebras la Navidad"],"light"],
+ ["A2","Semana ligera: metas 2027","Going to para planes","Metas y propósitos","Escribir tus metas del año",["Escribir 5 metas de 2027 usando going to","Hacer al menos 3 prácticas diarias","Repasar tus errores de diciembre"],"light"],
+ ["A2","Planes y viajes","Futuro: going to vs. will","Viajes y transporte","Hablar de planes y predicciones",["Explicar cuándo usar will y cuándo going to","Planear en inglés un viaje imaginario a Europa","Escuchar un episodio de Let’s Learn English (VOA)"]],
+ ["A2","Comparar opciones","Comparativos y superlativos","Describir personas, lugares y tecnología","Comparar dos opciones",["Comparar dos laptops o dos ciudades en 6 oraciones","Usar bien more / -er / the most","Hablar 2 minutos con Claude comparando Quito y otra ciudad"]],
+ ["A2","Experiencias","Presente perfecto: ever / never","Experiencias y logros","Contar experiencias de vida",["Hacer y responder 8 preguntas Have you ever…?","Aprender el participio de 20 verbos","Escribir un párrafo sobre tu mayor logro"]],
+ ["A2","Consejos y reglas","Modales: can, could, should, must","Salud y bienestar","Dar consejos",["Hacer el EF SET de control #2 y registrarlo","Dar 5 consejos a un estudiante nuevo de tu carrera","Escuchar 2 audios de ELLLO nivel 3"],"efset"],
+ ["A2","Cierre de la fase 1","Repaso general A2","Repaso del vocabulario de la fase","Escribir un email informal",["Hacer 3 prácticas extra de repaso","Escribir un email informal de 80–100 palabras y revisarlo en Write & Improve","Conversar 15 minutos con Claude sobre tu vida y tus planes"]],
+ ["B1","Tu trayectoria","Present perfect vs. past simple; for / since","Trabajo y estudios","Hablar de tu experiencia",["Elegir bien entre present perfect y past simple","Contar desde cuándo estudias y trabajas (for / since)","Semana de Carnaval: si viajas, haz solo la práctica diaria"],"light"],
+ ["B1","Contar historias","Pasado continuo; when / while","Conectores narrativos","Contar una anécdota",["Contar una anécdota de 2 minutos con when y while","Usar first, then, after that, finally","Escuchar un episodio de 6 Minute English"]],
+ ["B1","Si pasa esto…","Primer condicional y oraciones de tiempo","Educación y universidad","Hablar de planes condicionados",["Explicar qué harás si ganas la beca","Escribir 8 oraciones con if / when / as soon as","Leer un texto B1 del British Council"]],
+ ["B1","Si pudiera…","Segundo condicional","Medio ambiente y sociedad","Hablar de situaciones hipotéticas",["Responder 5 preguntas What would you do if…?","Distinguir primer y segundo condicional","Conversar con Claude sobre un problema de tu ciudad"]],
+ ["B1","Tu proyecto","Oraciones de relativo: who, which, that, where","Software y tecnología","Explicar un proyecto tuyo",["Describir un proyecto de software tuyo en 1 minuto","Usar who / which / where sin repetir el sujeto","Aprender 20 palabras técnicas que usarás en la maestría"]],
+ ["B1","Cómo se hace","Voz pasiva (presente y pasado)","Procesos y producción","Describir un proceso",["Explicar cómo se desarrolla una app usando la pasiva","Transformar 10 oraciones activas a pasivas","Ver un video corto de TED-Ed con subtítulos en inglés"]],
+ ["B1","Semana ligera: Semana Santa","Repaso de condicionales y pasiva","Repaso","Escuchar por gusto",["Hacer al menos 3 prácticas diarias","Escuchar 2 episodios de 6 Minute English","Ver una película en inglés"],"light"],
+ ["B1","Opiniones","Gerundios e infinitivos","Gustos, hábitos y opiniones","Escribir un párrafo de opinión",["Usar enjoy -ing, decide to, want to correctamente","Escribir un párrafo de opinión de 120 palabras","Dar tu opinión 2 minutos con Claude sobre el trabajo remoto"]],
+ ["B1","Lo que dijo","Estilo indirecto (introducción)","Noticias y medios","Contar lo que otra persona dijo",["Hacer el EF SET de control #3 y registrarlo","Transformar 8 frases a estilo indirecto","Resumir en inglés una conversación de tu trabajo"],"efset"],
+ ["B1","Noticias","Estilo indirecto: preguntas y órdenes","Noticias, medios y redes","Resumir una noticia",["Leer 3 noticias en VOA Learning English","Resumir una noticia en voz alta en 1 minuto","Grabarte y escucharte para notar errores"]],
+ ["B1","Debe ser…","Modales de deducción: must, might, can’t","Describir imágenes","Describir y especular sobre una foto",["Describir 3 fotos durante 1 minuto cada una","Usar might / must / can’t para especular","Practicar la tarea de describir foto del Duolingo English Test"]],
+ ["B1","Lenguaje de trabajo","Phrasal verbs frecuentes","Conectores de contraste: however, although","Participar en una reunión",["Aprender 20 phrasal verbs de trabajo","Usar however y although en un texto","Simular con Claude una reunión de equipo"]],
+ ["B1","Cierre de la fase 2","Repaso general B1","Repaso del vocabulario de la fase","Escribir un email formal",["Hacer 3 prácticas extra de repaso","Escribir un email formal de 120–150 palabras pidiendo información a una universidad","Revisar tu lista de errores frecuentes"]],
+ ["B2","Decisiones pasadas","Tercer condicional, mixtos; wish / if only","Decisiones y consecuencias","Hablar de arrepentimientos",["Usar el tercer condicional sin dudar","Escribir 5 oraciones con I wish / if only","Conversar con Claude sobre una decisión importante de tu vida"]],
+ ["B2","Lenguaje académico","Pasiva avanzada: it is said that…, have something done","Academic Word List (parte 1)","Leer un artículo académico corto",["Aprender 30 palabras de la Academic Word List","Leer un artículo de divulgación y resumirlo en 5 oraciones","Usar 3 estructuras de pasiva avanzada"]],
+ ["B2","El ensayo","Marcadores del discurso","Opinión y argumentación","Estructurar un ensayo",["Conocer la estructura de un ensayo de 250 palabras","Escribir introducción y conclusión de un ensayo","Corregir tu texto en Write & Improve"]],
+ ["B2","Datos y gráficos","Colocaciones y lenguaje de tendencias","Academic Word List (parte 2)","Describir un gráfico",["Describir un gráfico en 150 palabras (estilo IELTS Task 1)","Usar rise, fall, peak, remain stable","Aprender 30 colocaciones con make / do / take"]],
+ ["B2","Hablar dos minutos","Pasado perfecto y presente perfecto continuo","Experiencias y logros","Hablar 2 minutos seguidos",["Practicar 3 temas de Speaking Part 2 grabándote","Usar had + participio en una historia","Escuchar un TED Talk con transcripción"]],
+ ["B2","Dar énfasis","Oraciones hendidas e inversión (What I need is…, Not only…)","Educación y tecnología","Enfatizar tus ideas",["Hacer el EF SET de control #4 y registrarlo","Usar 3 estructuras de énfasis en un texto","Conversar con Claude sobre la educación en Ecuador"],"efset"],
+ ["B2","Parafrasear","Nominalización y frases nominales","Sinónimos y paráfrasis","Parafrasear",["Parafrasear 10 oraciones de exámenes","Convertir verbos en sustantivos (decide → decision)","Leer 2 textos de BBC Future"]],
+ ["B2","Ser prudente","Hedging: may, tend to, it appears that","Ciencia e investigación","Lectura cronometrada",["Decidir tu examen (IELTS o DET) según los requisitos de tus programas","Reservar fecha de examen y verificar sedes en Ecuador","Hacer una lectura cronometrada de 20 minutos"]],
+ ["B2","Clases y conferencias","Repaso de tiempos verbales","Ciencia y tecnología","Tomar notas de una charla",["Tomar notas de 2 charlas de TED-Ed","Resumir una charla en voz alta","Escribir un ensayo completo de 250 palabras en 40 minutos"]],
+ ["B2","Cierre de la fase 3","Repaso general B2","Repaso del vocabulario académico","Simulacro completo",["Hacer un simulacro gratuito completo del examen elegido","Calcular tu puntaje estimado por sección","Hacer tu lista de los 10 errores que más repites"]],
+ ["EX","Conoce tu examen","Tus errores frecuentes","Vocabulario por temas del examen","Formato y tiempos",["Conocer cada sección y su tiempo exacto","Hacer una sección de práctica oficial por día","Preparar plantillas de respuestas para writing y speaking"]],
+ ["EX","Writing intensivo","Precisión gramatical al escribir","Conectores y paráfrasis","Writing cronometrado",["Escribir 2 Task 1 y 2 Task 2 cronometrados (o tareas de writing del DET)","Revisar cada texto en Write & Improve","Reescribir el texto con peor puntaje"]],
+ ["EX","Simulacro y control","Repaso según tus errores","Educación, trabajo y tecnología","EF SET y simulacro",["Hacer el EF SET de control #5 y registrarlo","Hacer un simulacro completo en condiciones reales","Ajustar las últimas semanas según tus resultados"],"efset"],
+ ["EX","Speaking intensivo","Fluidez y autocorrección","Expresiones para ganar tiempo","Speaking partes 1, 2 y 3",["Grabarte en las 3 partes del speaking cada día","Practicar con Claude preguntas tipo examen","Usar expresiones como That’s an interesting question…"]],
+ ["EX","Último simulacro","Repaso final de errores","Repaso final de vocabulario","Simulacro final",["Hacer el último simulacro completo","Repasar solo tu lista de errores","Confirmar documentos, sede y hora del examen"]],
+ ["EX","Semana del examen","Nada nuevo: solo repaso ligero","Repaso ligero","Descanso y confianza",["Dormir bien toda la semana","Repasar plantillas y vocabulario 20 minutos al día","Llegar temprano con tu documento de identidad"]]
+];
+
+/* ============ Rutinas y recursos ============ */
+const R = {
+  duo:{n:"Duolingo",u:"https://www.duolingo.com",d:"Calentamiento diario de 5–10 minutos. Útil para constancia, no como método principal."},
+  bcg:{n:"British Council: gramática",u:"https://learnenglish.britishcouncil.org/grammar",d:"Explicaciones y ejercicios por nivel (A1–A2 y B1–B2). Tu fuente de gramática semanal."},
+  bcl:{n:"British Council: listening",u:"https://learnenglish.britishcouncil.org/skills/listening",d:"Audios por nivel con transcripción y ejercicios."},
+  bcr:{n:"British Council: reading",u:"https://learnenglish.britishcouncil.org/skills/reading",d:"Lecturas graduadas por nivel con preguntas."},
+  bcw:{n:"British Council: writing",u:"https://learnenglish.britishcouncil.org/skills/writing",d:"Modelos de emails, ensayos e informes por nivel."},
+  bbc:{n:"BBC Learning English",u:"https://www.bbc.co.uk/learningenglish",d:"Cursos, gramática y vocabulario con audio y transcripciones."},
+  six:{n:"6 Minute English (BBC)",u:"https://www.bbc.co.uk/learningenglish/english/features/6-minute-english",d:"Podcast de 6 minutos con vocabulario y transcripción. Ideal desde B1."},
+  voa:{n:"VOA Learning English",u:"https://learningenglish.voanews.com",d:"Noticias leídas despacio y el curso Let’s Learn English para principiantes."},
+  ell:{n:"ELLLO",u:"https://www.elllo.org",d:"Miles de audios cortos de personas reales de todo el mundo, por nivel."},
+  nil:{n:"News in Levels",u:"https://www.newsinlevels.com",d:"La misma noticia en 3 niveles. Empieza en nivel 1 y sube."},
+  wai:{n:"Write & Improve (Cambridge)",u:"https://writeandimprove.com",d:"Escribe y recibe corrección automática con tu nivel MCER estimado. Gratis."},
+  cam:{n:"Cambridge Dictionary",u:"https://dictionary.cambridge.org",d:"Definiciones claras con pronunciación británica y americana."},
+  ted:{n:"TED-Ed",u:"https://ed.ted.com",d:"Lecciones animadas de 5 minutos sobre ciencia y tecnología. Ideal para B1–B2."},
+  bfu:{n:"BBC Future",u:"https://www.bbc.com/future",d:"Artículos de divulgación con el registro de una lectura de IELTS."},
+  yt_bbc:{n:"YouTube: BBC Learning English",u:"https://www.youtube.com/results?search_query=BBC+Learning+English",d:"Videos cortos de gramática, pronunciación y la serie English at Work."},
+  yt_easy:{n:"YouTube: Easy English",u:"https://www.youtube.com/results?search_query=Easy+English+street+interviews",d:"Entrevistas en la calle con subtítulos en inglés. Inglés real, nada de guion."},
+  yt_lucy:{n:"YouTube: English with Lucy",u:"https://www.youtube.com/results?search_query=English+with+Lucy",d:"Gramática, vocabulario y pronunciación británica explicadas con calma."},
+  yt_rach:{n:"YouTube: Rachel’s English",u:"https://www.youtube.com/results?search_query=Rachel%27s+English+pronunciation",d:"Pronunciación americana detallada. Perfecto para shadowing."},
+  yt_liz:{n:"IELTS Liz",u:"https://ieltsliz.com",d:"Consejos, modelos de respuesta y estrategias para cada parte del IELTS."},
+  ielts:{n:"IELTS: prácticas oficiales",u:"https://ielts.org",d:"Pruebas de práctica gratuitas y la información oficial del formato."},
+  det:{n:"Duolingo English Test: práctica",u:"https://englishtest.duolingo.com",d:"Prueba de práctica gratuita con el formato real del DET."},
+  efset:{n:"EF SET",u:"https://www.efset.org",d:"Test gratuito de 50 minutos con nivel MCER. Tu control cada 2–3 meses."},
+  claude:{n:"Conversación con Claude",u:"#conversar",d:"Práctica de speaking escrita o por voz, adaptada a tu semana."}
+};
+const PHASE_RES = {
+  A2:["duo","bcg","voa","ell","nil","wai","bbc","yt_easy","yt_bbc","cam","efset","claude"],
+  B1:["bcg","six","bcl","bcr","voa","wai","ted","yt_bbc","yt_lucy","yt_rach","efset","claude"],
+  B2:["bcg","six","ted","bfu","bcw","wai","yt_liz","yt_rach","ielts","det","efset","claude"],
+  EX:["ielts","det","yt_liz","wai","six","bfu","efset","claude"]
+};
+// rutina por día (0 = lunes ... 6 = domingo)
+const ROUTINE = {
+  A2:[
+    [["Gramática de la semana","bcg",15],["Práctica diaria aquí","#practica",10],["Duolingo","duo",8]],
+    [["Escucha: Let’s Learn English o ELLLO nivel 2–3","voa",15],["Práctica diaria aquí","#practica",10],["Anota 5 palabras nuevas","cam",5]],
+    [["Lectura: 1 noticia en News in Levels (nivel 1–2)","nil",15],["Práctica diaria aquí","#practica",10],["Duolingo","duo",8]],
+    [["Escritura: 6 oraciones sobre el tema de la semana","wai",15],["Práctica diaria aquí","#practica",10]],
+    [["Conversación con Claude","claude",15],["Shadowing: repite en voz alta un video corto","yt_bbc",10],["Práctica diaria aquí","#practica",10]],
+    [["Repaso de tus errores de la semana","#progreso",15],["Video con subtítulos en inglés","yt_easy",30],["Práctica extra","#practica",15]],
+    [["Opcional: serie o música en inglés con subtítulos en inglés",null,30]]
+  ],
+  B1:[
+    [["Gramática de la semana (B1)","bcg",15],["Práctica diaria aquí","#practica",10],["Duolingo","duo",8]],
+    [["Escucha: 1 episodio de 6 Minute English","six",10],["Práctica diaria aquí","#practica",10],["Anota 5 expresiones nuevas","cam",5]],
+    [["Lectura B1 del British Council o VOA","bcr",15],["Práctica diaria aquí","#practica",10]],
+    [["Escritura: email o historia de 120 palabras","wai",20],["Práctica diaria aquí","#practica",10]],
+    [["Conversación con Claude","claude",15],["Shadowing con un video de pronunciación","yt_rach",10],["Práctica diaria aquí","#practica",10]],
+    [["Repaso de errores de la semana","#progreso",15],["TED-Ed con subtítulos en inglés","ted",20],["Escucha extra del British Council","bcl",20],["Práctica extra","#practica",15]],
+    [["Opcional: serie en inglés con subtítulos en inglés",null,40]]
+  ],
+  B2:[
+    [["Gramática B2 + 10 palabras académicas","bcg",15],["Práctica diaria aquí","#practica",10]],
+    [["Escucha: 6 Minute English o TED-Ed tomando notas","six",15],["Práctica diaria aquí","#practica",10]],
+    [["Lectura académica: 1 artículo de BBC Future","bfu",20],["Práctica diaria aquí","#practica",10]],
+    [["Escritura: medio ensayo (introducción + 1 párrafo)","wai",25],["Práctica diaria aquí","#practica",10]],
+    [["Speaking Part 2 con Claude (2 minutos)","claude",15],["Shadowing","yt_rach",10],["Práctica diaria aquí","#practica",10]],
+    [["Ensayo completo de 250 palabras","wai",40],["Estrategias de examen","yt_liz",20],["Práctica extra","#practica",15]],
+    [["Opcional: documental o charla en inglés",null,40]]
+  ],
+  EX:[
+    [["Reading cronometrado (práctica oficial)","ielts",30],["Práctica diaria aquí","#practica",10]],
+    [["Listening cronometrado (práctica oficial)","ielts",30],["Práctica diaria aquí","#practica",10]],
+    [["Writing Task 1 o tareas cortas del DET","wai",25],["Práctica diaria aquí","#practica",10]],
+    [["Writing Task 2 cronometrado","wai",40]],
+    [["Simulacro de speaking con Claude","claude",20],["Práctica diaria aquí","#practica",10]],
+    [["Simulacro completo","det",120]],
+    [["Descanso activo: algo en inglés que disfrutes",null,30]]
+  ]
+};
+
+/* ============ Banco de ejercicios ============ */
+const BANK = {
+A2:{
+ vocab:[
+  ["The opposite of “cheap” is ___.",["expensive","easy","short","early"],"cheap = barato; expensive = caro."],
+  ["I can’t find my keys. Can you help me look ___ them?",["for","at","after","on"],"look for = buscar. Look at = mirar, look after = cuidar."],
+  ["My brother works in a hospital. He takes care of patients. He’s a ___.",["nurse","lawyer","chef","pilot"],"nurse = enfermero/a."],
+  ["It’s very cold today. Take your ___.",["jacket","sunglasses","sandals","swimsuit"],"jacket = chaqueta, para el frío."],
+  ["“Actually” means ___.",["en realidad","actualmente","activamente","exactamente"],"Falso amigo: actually = en realidad. “Actualmente” se dice currently o nowadays."],
+  ["I’m very ___ in technology, so I study software engineering.",["interested","interesting","boring","bored"],"Las personas están interested (interesadas); las cosas son interesting."],
+  ["Can you ___ me your notes? I’ll give them back tomorrow.",["lend","borrow","take","bring"],"lend = prestar (dar). Borrow = pedir prestado (recibir)."],
+  ["The bus was late, so I ___ the class.",["missed","lost","failed","left"],"miss = perder un bus, una clase o una oportunidad. Lose = perder un objeto."],
+  ["I go to work ___ bus every day.",["by","on","in","with"],"Medio de transporte en general: by bus, by car, by plane."],
+  ["She ___ a lot of photos on her trip.",["took","made","did","had"],"take a photo = tomar una foto."],
+  ["In Ecuador, a university ___ in engineering usually takes about five years.",["degree","career","title","race"],"degree = título o carrera universitaria. Career = trayectoria profesional (falso amigo)."],
+  ["“Library” means ___.",["biblioteca","librería","laboratorio","oficina"],"Falso amigo: library = biblioteca. Librería = bookstore."],
+  ["The meeting starts at 9, so please be on ___.",["time","hour","clock","moment"],"on time = puntual, a tiempo."],
+  ["My office is on the third ___.",["floor","ground","roof","flat"],"floor = piso de un edificio."],
+  ["I’m tired. I’m going to ___ a break.",["take","do","make","give"],"take a break = tomar un descanso."],
+  ["My sister is very ___. She talks to everyone at parties.",["friendly","shy","quiet","lazy"],"friendly = amigable, sociable. Shy = tímida."]
+ ],
+ gram:[
+  ["mcq","She ___ to university every day.",["goes","go","is go","going"],"Presente simple con he / she / it: el verbo lleva -s o -es (goes)."],
+  ["mcq","Right now I ___ for my exam.",["am studying","study","studies","studied"],"Right now indica una acción en progreso: presente continuo (am + -ing)."],
+  ["type","Yesterday I ___ to the gym. (go)",["went"],"Go es irregular: go → went → gone."],
+  ["mcq","___ you finish the project last week?",["Did","Do","Were","Have"],"Preguntas en pasado simple con did + verbo base."],
+  ["type","There ___ many people at the party last night. (be)",["were"],"There were para plural en pasado; there was para singular."],
+  ["mcq","How ___ water do you drink every day?",["much","many","a lot","few"],"Water es incontable: how much. Para contables se usa how many."],
+  ["mcq","Quito is ___ than Guayaquil.",["colder","more cold","coldest","the colder"],"Adjetivos cortos: -er + than (colder than)."],
+  ["mcq","This is the ___ day of my life!",["best","better","good","most good"],"Superlativo irregular de good: the best."],
+  ["mcq","I ___ visit my grandparents this weekend. I already bought the tickets.",["am going to","will","going","go to"],"Plan ya decidido: be going to."],
+  ["mcq","Have you ever ___ sushi?",["eaten","ate","eat","eating"],"Presente perfecto: have + participio (eat → ate → eaten)."],
+  ["mcq","You look tired. You ___ go to bed early.",["should","mustn’t","can","would"],"should para dar consejos."],
+  ["type","He ___ coffee. (not / like)",["doesn't like","does not like"],"Negativa con he / she / it: doesn’t + verbo base (sin -s)."],
+  ["mcq","I was born ___ 2004.",["in","on","at","since"],"in para años y meses; on para días; at para horas."],
+  ["mcq","There isn’t ___ milk in the fridge.",["any","some","many","a"],"any en negativas y preguntas; some en afirmativas."],
+  ["type","She ___ two brothers. (have)",["has"],"have → has con he / she / it."],
+  ["mcq","My laptop is ___ than yours.",["more expensive","expensiver","most expensive","expensive"],"Adjetivos largos: more + adjetivo + than."]
+ ],
+ read:[
+  {title:"A developer from Cuenca",p:"Carlos is a software developer from Cuenca. He works for a small company that makes apps for restaurants. He starts work at 8 a.m. and finishes at 5 p.m. After work, he goes to an English class twice a week because he wants to work for an international company. On weekends, he likes hiking in Cajas National Park with his friends. Last month, he finished his first app on his own: a simple app that helps students organise their homework.",
+   qs:[["Why does Carlos study English?",["He wants to work for an international company.","His boss tells him to.","He wants to travel to Cajas.","He teaches English."],"El texto dice: because he wants to work for an international company."],
+       ["What did Carlos do last month?",["He finished his first app alone.","He started a new job.","He went hiking for the first time.","He moved to Cuenca."],"on his own = solo, sin ayuda."],
+       ["How often does he go to English class?",["Twice a week","Every day","On weekends","Once a month"],"twice a week = dos veces por semana."]]},
+  {title:"An email from Valeria",p:"Hi Sofía,\nThanks for your message! I’m sorry I didn’t answer earlier. I was very busy with exams. Yes, I’d love to come to your birthday party on Saturday. Can I bring my cousin Mateo? He’s visiting me from Loja this week and he doesn’t know anyone here. I can make a chocolate cake if you want.\nSee you soon!\nValeria",
+   qs:[["Why didn’t Valeria answer earlier?",["She was busy with exams.","She was in Loja.","She was sick.","She didn’t see the message."],"I was very busy with exams."],
+       ["What does Valeria offer to do?",["Make a cake","Organise the party","Pick up Sofía","Buy drinks"],"I can make a chocolate cake = puedo hacer un pastel."]]},
+  {title:"Library notice",p:"Library opening hours are changing. From Monday 3 March, the university library will open at 7 a.m. instead of 8 a.m. It will close at 9 p.m. from Monday to Friday. On Saturdays, it will open from 9 a.m. to 1 p.m. The library will be closed on Sundays. Students need their ID card to enter.",
+   qs:[["What time will the library open on weekdays?",["7 a.m.","8 a.m.","9 a.m.","1 p.m."],"instead of 8 a.m. = en lugar de las 8."],
+       ["Which sentence is TRUE?",["You need your ID card to enter.","It opens on Sundays.","It closes at 1 p.m. on Fridays.","It will open later than before."],"Students need their ID card to enter."]]}
+ ],
+ listen:["I study software engineering at the university.","What time do you usually finish work?","Last weekend I visited my family.","Could you speak more slowly, please?","I’m going to take the exam next year.","There are three bedrooms in my house.","She doesn’t like getting up early.","We had lunch at a small restaurant near the park."]
+},
+B1:{
+ vocab:[
+  ["Could you ___ me a favour?",["do","make","give","take"],"do someone a favour = hacerle un favor a alguien."],
+  ["The manager decided to ___ the meeting until next week.",["put off","put on","take off","give up"],"put off = posponer."],
+  ["I’m looking ___ to hearing from you.",["forward","ahead","after","for"],"look forward to + -ing = esperar con ilusión. Muy común al cerrar emails formales."],
+  ["She’s very ___: she always finishes her tasks on time.",["reliable","sensitive","sensible","lazy"],"reliable = confiable. Sensible = sensato (falso amigo); sensitive = sensible."],
+  ["We must meet the ___: the project is due on Friday.",["deadline","timeline","headline","guideline"],"deadline = fecha límite."],
+  ["I applied ___ a scholarship to study in Europe.",["for","to","at","on"],"apply for something (una beca, un trabajo); apply to an institution."],
+  ["Can you figure ___ what the problem is?",["out","up","off","in"],"figure out = descubrir, entender."],
+  ["“Eventually” means ___.",["finalmente, con el tiempo","eventualmente, quizá","ocasionalmente","inmediatamente"],"Falso amigo: eventually = al final, con el tiempo."],
+  ["Prices have ___ a lot this year.",["risen","raised","arisen","rose"],"rise (subir, sin objeto) → rose → risen. Raise necesita objeto: raise prices."],
+  ["My manager gave me some useful ___ on my presentation.",["feedback","feedbacks","advices","informations"],"feedback, advice e information son incontables: no llevan -s."],
+  ["I can’t ___ the noise from the street.",["stand","support","resist","hold on"],"can’t stand = no soportar. Support = apoyar (falso amigo)."],
+  ["Please fill ___ the form and send it back by email.",["in","up","on","off"],"fill in a form = llenar un formulario."],
+  ["He ___ his job because he wanted to travel.",["quit","retired","fired","dropped"],"quit a job = renunciar. Fire = despedir (lo hace el jefe)."],
+  ["We need to ___ the costs before starting the project.",["estimate","guess","wonder","suppose"],"estimate = calcular aproximadamente."],
+  ["I need to ___ my English before the exam.",["brush up on","brush on","brush off","brush up to"],"brush up on = repasar, refrescar un conocimiento."],
+  ["Our team ___ a new feature for the app last month.",["launched","threw","started up","opened"],"launch = lanzar un producto o función."]
+ ],
+ gram:[
+  ["mcq","I ___ here since 2022.",["have lived","live","am living","lived"],"since + punto en el tiempo pide presente perfecto: have lived."],
+  ["mcq","While I ___ dinner, the power went out.",["was cooking","cooked","am cooking","have cooked"],"Acción larga interrumpida: pasado continuo (was cooking)."],
+  ["type","If it ___ tomorrow, we’ll stay home. (rain)",["rains"],"Primer condicional: if + presente simple, will + verbo."],
+  ["mcq","If I ___ more money, I would travel around Europe.",["had","have","would have","will have"],"Segundo condicional: if + pasado simple, would + verbo."],
+  ["mcq","The developer ___ built this app lives in Quito.",["who","which","where","whose"],"who para personas, which para cosas."],
+  ["type","The bug ___ yesterday by the team. (fix, pasiva)",["was fixed"],"Pasiva en pasado: was / were + participio."],
+  ["mcq","I enjoy ___ podcasts on my way to work.",["listening to","to listen to","listen","listened"],"Después de enjoy va gerundio (-ing)."],
+  ["mcq","She told me that she ___ tired.",["was","is being","has","were"],"Estilo indirecto: el presente (I am) retrocede a pasado (she was)."],
+  ["mcq","He isn’t answering his phone. He ___ be in a meeting.",["might","mustn’t","can’t","should"],"might = posibilidad: quizá está en una reunión."],
+  ["mcq","I ___ my homework, so I can go out now.",["have already finished","already finish","finished already have","am already finishing"],"Resultado presente de una acción terminada: presente perfecto."],
+  ["mcq","I decided ___ English every day.",["to practise","practising","practise","to practising"],"decide + to + infinitivo. (Practise es verbo en inglés británico; practice es el sustantivo).",],
+  ["mcq","___ it was raining, we went for a walk.",["Although","However","Despite","Because"],"Although + oración completa. However va entre oraciones; despite + sustantivo o -ing."],
+  ["type","This app ___ by millions of people every day. (use, pasiva)",["is used"],"Pasiva en presente: am / is / are + participio."],
+  ["mcq","When I arrived, the class ___ already started.",["had","has","was","have"],"Pasado perfecto (had + participio) para algo anterior a otra acción pasada."],
+  ["mcq","You ___ wear a suit to the interview, but it’s a good idea.",["don’t have to","mustn’t","can’t","shouldn’t to"],"don’t have to = no es necesario. Mustn’t = está prohibido."],
+  ["mcq","This is the city ___ I was born.",["where","which","who","what"],"where para lugares en oraciones de relativo."]
+ ],
+ read:[
+  {title:"Working from home",p:"Working from home has become common for many software developers. Supporters say it saves time, because people don’t have to travel to an office, and it allows them to organise their own schedule. However, some workers feel lonely and find it difficult to separate work from their personal life. A recent survey of 2,000 developers found that most of them prefer a hybrid model: two or three days at home and the rest in the office. Interestingly, younger developers were more likely than older ones to want to go to the office, mainly because they wanted to learn from more experienced colleagues.",
+   qs:[["What is the main idea of the text?",["Remote work has pros and cons, and many developers prefer a mix.","Remote work is always better.","Developers hate going to the office.","Older developers want to work at the office."],"El texto presenta ventajas, desventajas y la preferencia por el modelo híbrido."],
+       ["Why do younger developers want to go to the office?",["To learn from more experienced colleagues","To save money","Because their homes are small","Because they can’t use computers at home"],"mainly because they wanted to learn from more experienced colleagues."],
+       ["Which word could replace “However” in the text?",["Nevertheless","Therefore","Because","Moreover"],"However y nevertheless introducen un contraste. Therefore = por lo tanto."]]},
+  {title:"A scholarship announcement",p:"The Global Futures Scholarship offers full tuition, a monthly allowance and one return flight to students from Latin America who want to do a master’s degree in Europe. To apply, you need a bachelor’s degree, or proof that you will finish it before the programme starts. You also need an English certificate at B2 level or higher, two reference letters and a motivation letter of no more than two pages. Work experience is not required, but applicants with relevant experience may receive extra points. The deadline is 15 January, and late applications will not be accepted.",
+   qs:[["Which of these is NOT required?",["Work experience","An English certificate","Reference letters","A motivation letter"],"Work experience is not required: no es obligatoria, solo suma puntos."],
+       ["Can you apply before finishing your bachelor’s degree?",["Yes, if you will finish it before the programme starts.","No, never.","Only with work experience.","Only after 15 January."],"or proof that you will finish it before the programme starts."],
+       ["In this text, “allowance” means…",["dinero periódico para gastos","un permiso especial","tolerancia","un descuento"],"allowance = asignación o mensualidad para gastos."]]},
+  {title:"Lucía in Lisbon",p:"When Lucía moved to Lisbon for her studies, she didn’t speak a word of Portuguese. During the first weeks she relied on English, but she soon realised that she was missing out on conversations with her neighbours. So she joined a free language exchange at the university: one hour in Portuguese, one hour in Spanish. At first she felt embarrassed about her mistakes, but her partner, Tiago, made her feel comfortable. Six months later, she was able to give a short presentation in Portuguese.",
+   qs:[["Why did Lucía join the language exchange?",["She felt she was missing conversations with her neighbours.","Her teacher made her.","She wanted to teach Spanish professionally.","She failed an exam."],"she realised that she was missing out on conversations with her neighbours."],
+       ["How did Lucía feel at the beginning?",["Embarrassed","Confident","Bored","Angry"],"embarrassed = avergonzada (no “embarazada”, que es pregnant)."]]}
+ ],
+ listen:["I’ve been studying English for about two years.","If I get the scholarship, I’ll move to Europe next year.","The meeting was postponed because the manager was ill.","Could you tell me where the nearest station is?","She said she would send the report by Friday.","Although it was difficult, I finished the project on time.","The app was downloaded more than ten thousand times.","I’m not used to working late at night."]
+},
+B2:{
+ vocab:[
+  ["The results of the study were ___: researchers couldn’t draw a clear conclusion.",["inconclusive","outstanding","compelling","consistent"],"inconclusive = no concluyente."],
+  ["The government aims to ___ the gap between rural and urban areas.",["bridge","build","cross","join"],"bridge the gap = reducir la brecha."],
+  ["Her argument was very ___; it convinced everyone in the room.",["compelling","compulsive","complacent","complicated"],"compelling = convincente, contundente."],
+  ["We need to take ___ account the cost of maintenance.",["into","in","on","to"],"take into account = tener en cuenta."],
+  ["The new policy had a significant ___ on small businesses.",["impact","affect","damage","result"],"impact (sustantivo) on. Affect es verbo; effect es el sustantivo."],
+  ["In my opinion, the benefits of AI far ___ the risks.",["outweigh","overcome","overtake","outrun"],"outweigh = superar en peso o importancia."],
+  ["The professor asked us to ___ on our learning process.",["reflect","reflex","mirror","think"],"reflect on = reflexionar sobre."],
+  ["Despite the challenges, the team managed to ___ the project on schedule.",["deliver","give","carry","bring"],"deliver a project = entregar un proyecto."],
+  ["“Nevertheless” is closest in meaning to ___.",["nonetheless","therefore","furthermore","meanwhile"],"Ambos significan “sin embargo”."],
+  ["The evidence ___ that young people use social media more than ever.",["suggests","pretends","insists","argues to"],"suggest = indicar, sugerir. Pretend = fingir (falso amigo)."],
+  ["Many students struggle to ___ a balance between work and study.",["strike","hit","put","take"],"strike a balance = encontrar un equilibrio."],
+  ["The proposal was rejected due to a ___ of funding.",["lack","miss","fault","need"],"lack of = falta de."],
+  ["Online learning has become ___ in higher education.",["widespread","wideness","broadly","large"],"widespread = extendido, generalizado."],
+  ["The researchers carried ___ an experiment with 200 participants.",["out","on","off","through"],"carry out = llevar a cabo."],
+  ["The number of users ___ from 2,000 to 15,000 in a single year.",["soared","sank","dropped","declined"],"soar = dispararse, subir mucho. Útil para describir gráficos."],
+  ["Her proposal was ___ by the committee, so she started the project immediately.",["approved","approached","appointed","applied"],"approve = aprobar."]
+ ],
+ gram:[
+  ["mcq","If I had studied harder, I ___ the exam.",["would have passed","would pass","will pass","had passed"],"Tercer condicional: if + had + participio, would have + participio."],
+  ["mcq","I wish I ___ more time to practise speaking.",["had","have","will have","am having"],"wish + pasado simple para deseos sobre el presente."],
+  ["mcq","Not only ___ the exam, but she also got a scholarship.",["did she pass","she passed","she did pass","passed she"],"Inversión tras Not only: auxiliar + sujeto + verbo."],
+  ["type","The new library ___ at the moment. (build, pasiva)",["is being built"],"Pasiva en presente continuo: is / are being + participio."],
+  ["mcq","The company is said ___ more than 500 employees.",["to have","having","has","that has"],"Pasiva de reporte: subject + is said + to + infinitivo."],
+  ["mcq","By the time we arrived, the presentation ___.",["had already started","already started","has already started","was already starting"],"Acción anterior a otra en el pasado: pasado perfecto."],
+  ["mcq","I’ve been ___ this bug for three hours and I still can’t find it.",["trying to fix","tried to fix","try fixing","tries to fix"],"Presente perfecto continuo: have been + -ing."],
+  ["mcq","___ having little experience, he got the job.",["Despite","Although","However","Even though"],"Despite + sustantivo o -ing. Although necesita oración completa."],
+  ["type","I’d rather you ___ anyone about this. (not / tell)",["didn't tell","did not tell"],"would rather + sujeto + pasado simple."],
+  ["mcq","What I need ___ more practice with listening.",["is","are","it is","that is"],"Oración hendida: What + sujeto + verbo + is + …"],
+  ["mcq","She had her laptop ___ last week.",["repaired","repair","to repair","repairing"],"have something done = mandar a hacer algo."],
+  ["mcq","Had I known about the deadline, I ___ earlier.",["would have started","would start","had started","will start"],"Tercer condicional con inversión: Had I known = If I had known."],
+  ["mcq","The report, ___ was published in 2024, shows a clear trend.",["which","that","what","who"],"En oraciones explicativas (entre comas) no se usa that, solo which."],
+  ["mcq","It’s high time we ___ a decision.",["made","make","will make","have made"],"It’s high time + pasado simple."],
+  ["type","If she ___ the offer last year, she would be living in Madrid now. (accept)",["had accepted","'d accepted"],"Condicional mixto: pasado (had + participio) con resultado presente."],
+  ["mcq","The more you practise, ___ you become.",["the more confident","more confident","the most confident","the confident"],"Estructura the + comparativo, the + comparativo."]
+ ],
+ read:[
+  {title:"English-taught programmes in Europe",p:"Over the past decade, universities across Europe have expanded the number of programmes taught entirely in English. Proponents argue that this attracts international talent and prepares local students for a globalised labour market. Critics, however, warn that the shift may undermine the use of national languages in academic contexts, particularly in scientific fields where specialised terminology is still being developed. A further concern is the quality of instruction: lecturers who are not fully proficient in English may simplify their content, which could lower academic standards. Nevertheless, most institutions appear to be addressing these issues by offering language training to staff rather than abandoning English-medium instruction altogether.",
+   qs:[["What is the writer’s main purpose?",["To present arguments for and against English-taught programmes","To persuade universities to stop teaching in English","To explain how to learn English","To criticise international students"],"El texto expone proponents (a favor) y critics (en contra) con tono neutral."],
+       ["“Undermine” is closest in meaning to…",["weaken","support","replace","explain"],"undermine = debilitar, socavar."],
+       ["How are most institutions responding?",["By training staff’s language skills","By abandoning English programmes","By hiring only native speakers","By reducing programmes"],"by offering language training to staff."]]},
+  {title:"Sleep and learning",p:"Neuroscientists have long suspected that sleep plays a crucial role in consolidating memories. In one widely cited experiment, participants learned a list of word pairs in the evening. Half of them then slept normally, while the other half stayed awake. The following day, those who had slept recalled significantly more word pairs. Researchers believe that, during deep sleep, the brain replays recently acquired information and transfers it to long-term storage. For language learners, the implication is clear: reviewing vocabulary shortly before going to bed, and getting enough sleep, may be more effective than studying late into the night.",
+   qs:[["What happened to the participants who slept?",["They remembered more word pairs.","They forgot more words.","There was no difference.","They learned faster in the evening."],"those who had slept recalled significantly more word pairs."],
+       ["What does the writer recommend to language learners?",["Review vocabulary before bed and sleep enough","Study late into the night","Avoid studying in the evening","Sleep during the day"],"reviewing vocabulary shortly before going to bed, and getting enough sleep."]]},
+  {title:"Who builds open-source software?",p:"Many people assume that open-source software is built only by unpaid volunteers. In reality, a large proportion of contributions to major open-source projects comes from employees of technology companies, who are paid to maintain code their employers depend on. This arrangement benefits both sides: companies gain influence over tools they rely on, while projects receive steady, professional contributions. Yet it also raises questions about independence. If a single corporation dominates a project, it may steer development towards its own priorities, potentially at the expense of the wider community.",
+   qs:[["Which common belief does the text challenge?",["That open source is built only by volunteers","That companies don’t use open source","That open-source code is low quality","That volunteers are paid"],"Many people assume… In reality… El texto corrige esa creencia."],
+       ["What concern does the writer raise?",["One company might control the project’s direction.","Software quality is falling.","Volunteers earn too much.","Projects receive too few contributions."],"it may steer development towards its own priorities."]]}
+ ],
+ listen:["Had I known about the deadline, I would have applied earlier.","The findings suggest that remote work can increase productivity.","Despite the challenges, the project was delivered on schedule.","It is widely believed that learning a language improves memory.","I would rather focus on the advantages than the drawbacks.","The number of international students has risen considerably.","In my view, universities should invest more in practical training.","Not only did she pass the exam, but she also got a scholarship."]
+}
+};
+
+/* ============ Utilidades ============ */
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const pad = n => String(n).padStart(2,"0");
+const ymd = d => d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const parseYmd = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y, m-1, d); };
+const addDays = (d,n) => { const x = new Date(d); x.setDate(x.getDate()+n); return x; };
+const today0 = () => { const t = new Date(); return new Date(t.getFullYear(), t.getMonth(), t.getDate()); };
+const daysBetween = (a,b) => Math.round((b - a)/DAY);
+const MONTHS = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const MONTHS_L = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const DOW = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
+const fmt = d => d.getDate()+" "+MONTHS[d.getMonth()];
+const fmtL = d => d.getDate()+" de "+MONTHS_L[d.getMonth()]+" de "+d.getFullYear();
+const dowIdx = d => (d.getDay()+6)%7;
+function hash(s){ let h = 2166136261; for (const c of s){ h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h>>>0; }
+function rng(seed){ let a = seed>>>0; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a>>>15, 1 | a); t = t + Math.imul(t ^ t>>>7, 61 | t) ^ t; return ((t ^ t>>>14)>>>0)/4294967296; }; }
+function shuffle(arr, r){ const a = arr.slice(); for (let i=a.length-1;i>0;i--){ const j = Math.floor(r()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; }
+const norm = s => String(s).toLowerCase().replace(/[’‘`]/g,"'").replace(/[.,!?;:"“”()]/g," ").replace(/\s+/g," ").trim();
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(()=>t.classList.remove("on"), 2200); }
+const useCap = name => (window.claude && typeof window.claude.use === "function") ? window.claude.use(name).catch(()=>null) : Promise.resolve(null);
+
+function weekNumberFor(d){ return Math.floor(daysBetween(START, d)/7) + 1; } // 0 o menos = antes del inicio
+function weekInfo(n){ const i = Math.min(Math.max(n,1), WEEKS.length) - 1; const w = WEEKS[i];
+  return {n:i+1, ph:w[0], title:w[1], g:w[2], v:w[3], skill:w[4], goals:w[5], flag:w[6]||"", start:addDays(START, i*7), end:addDays(START, i*7+6)}; }
+function currentWeek(){ return weekNumberFor(today0()); }
+function levelOfPhase(ph){ return ph === "EX" ? "B2" : ph; }
+function efLevel(score){ if (score>=71) return "C2"; if (score>=61) return "C1"; if (score>=51) return "B2"; if (score>=41) return "B1"; if (score>=31) return "A2"; return "A1"; }
+
+/* ============ Estado y almacenamiento ============ */
+const LS_KEY = "ruta-b2-danna-v1";
+const defaultState = () => ({v:1, days:{}, practices:[], efset:[], settings:{examDate:"2027-08-28", examType:"ielts"}});
+let state = defaultState();
+const store = {ref:null, mode:"local", dirty:false, saving:false, timer:null};
+function mergeState(raw){ const d = defaultState(); if (!raw || typeof raw !== "object") return d;
+  return {v:1, days: raw.days && typeof raw.days === "object" ? raw.days : {}, practices: Array.isArray(raw.practices) ? raw.practices : [], efset: Array.isArray(raw.efset) ? raw.efset : [], settings: {...d.settings, ...(raw.settings||{})}}; }
+function hasData(s){ return Object.keys(s.days).length || s.practices.length || s.efset.length; }
+function save(){
+  try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch(e){}
+  if (!store.ref) return;
+  store.dirty = true;
+  clearTimeout(store.timer);
+  store.timer = setTimeout(flush, 700);
+}
+async function flush(){
+  if (!store.ref) return;
+  if (store.saving){ store.timer = setTimeout(flush, 400); return; }
+  store.saving = true;
+  try { await store.ref.set(JSON.parse(JSON.stringify(state))); store.dirty = false; setStatus("Progreso guardado en tu cuenta. Lo verás igual en cualquier dispositivo."); }
+  catch(e){ setStatus("No se pudo guardar en tu cuenta; tu progreso queda guardado en este navegador."); }
+  finally { store.saving = false; }
+}
+function setStatus(t){ $("#status").textContent = t; }
+async function initStorage(){
+  try { const raw = localStorage.getItem(LS_KEY); if (raw) state = mergeState(JSON.parse(raw)); } catch(e){}
+  renderAll();
+  setStatus("Tu progreso se guarda en este navegador.");
+  const [db, user] = await Promise.all([useCap("db"), useCap("user")]);
+  if (!db || !user) return;
+  const id = await user.id();
+  if (!id) return;
+  try { store.ref = db.doc("data/users/"+id+"/progress"); } catch(e){ store.ref = null; return; }
+  let first = true;
+  const loadTimer = setTimeout(()=>setStatus("No se pudo conectar con tu cuenta todavía. Sigues guardando en este navegador."), 10000);
+  store.ref.onSnapshot(snap => {
+    if (!snap.metadata.fromCache) clearTimeout(loadTimer);
+    if (snap.exists){
+      if (!store.dirty){ state = mergeState(JSON.parse(JSON.stringify(snap.data()))); try{localStorage.setItem(LS_KEY, JSON.stringify(state));}catch(e){} renderAll(true); }
+      setStatus("Progreso sincronizado con tu cuenta.");
+    } else if (first && !snap.metadata.fromCache){
+      if (hasData(state)) save(); // sube lo que había en este navegador
+      setStatus("Progreso sincronizado con tu cuenta.");
+    }
+    if (!snap.metadata.fromCache) first = false;
+  }, err => { clearTimeout(loadTimer); store.ref = null; setStatus("Tu progreso se guarda en este navegador."); });
+}
+function dayRec(key){ if (!state.days[key]) state.days[key] = {}; return state.days[key]; }
+function isActive(key){ const d = state.days[key]; if (!d) return 0; const t = d.tasks ? Object.values(d.tasks).filter(Boolean).length : 0; return d.practiced ? 2 : (t>0 ? 1 : 0); }
+function streak(){
+  let s = 0, d = today0();
+  if (!isActive(ymd(d))) d = addDays(d,-1);
+  while (true){
+    const k = ymd(d);
+    if (isActive(k)) s++;
+    else if (dowIdx(d) < 5) break; // los fines de semana no rompen la racha
+    d = addDays(d,-1);
+    if (daysBetween(d, START) > 7) break;
+  }
+  return s;
+}
+function bestStreak(){
+  const keys = Object.keys(state.days).filter(isActive).sort(); if (!keys.length) return 0;
+  let best = 0, cur = 0, d = parseYmd(keys[0]); const end = today0();
+  while (d <= end){ if (isActive(ymd(d))) { cur++; best = Math.max(best,cur); } else if (dowIdx(d) < 5) cur = 0; d = addDays(d,1); }
+  return best;
+}
+
+/* ============ Ruteo ============ */
+const VIEWS = ["hoy","plan","practica","conversar","progreso","recursos"];
+function currentView(){ const h = location.hash.replace("#",""); return VIEWS.includes(h) ? h : "hoy"; }
+function showView(){
+  const v = currentView();
+  VIEWS.forEach(n => { $("#v-"+n).classList.toggle("on", n===v); });
+  document.querySelectorAll(".tabs a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href")==="#"+v ? "page" : "false"));
+  render(v);
+}
+window.addEventListener("hashchange", () => { showView(); window.scrollTo({top:0}); });
+const RENDER = {};
+function render(v){ RENDER[v] && RENDER[v](); }
+function renderAll(fromSync){ const v = currentView(); if (fromSync && (v==="practica" && session && !session.done || v==="conversar")) return; render(v); }
+
+/* ============ Vista: Hoy ============ */
+function examDate(){ return parseYmd(state.settings.examDate || "2027-08-28"); }
+function routeHTML(){
+  const wn = currentWeek(); const totalW = WEEKS.length;
+  const segs = ["A2","B1","B2","EX"].map(k => {
+    const p = PHASES[k]; let dots = "";
+    for (let w=p.from; w<=p.to; w++){
+      const cls = ["dot"]; if (w<wn) cls.push("done"); if (w===wn) cls.push("here"); if (WEEKS[w-1][6]==="efset" && w!==wn) cls.push("test");
+      dots += `<i class="${cls.join(" ")}" title="Semana ${w}">${w===wn?'<span class="here-tag">Estás aquí</span>':""}</i>`;
+    }
+    return `<div class="seg" style="flex:${p.to-p.from+1};background:${p.c};color:${p.c}">${dots}</div>`;
+  }).join("");
+  const legend = ["A2","B1","B2","EX"].map(k => { const p = PHASES[k];
+    return `<div style="flex:${p.to-p.from+1};color:${p.c}">Fase ${p.n}<small>${esc(p.name)}</small></div>`; }).join("");
+  const days = daysBetween(today0(), examDate());
+  let where;
+  if (wn < 1) where = `Tu plan empieza mañana, lunes ${fmt(START)}. Hoy puedes hacer tu primera práctica.`;
+  else if (wn > totalW) where = `Llegaste a la última estación. ¡Mucho éxito en tu examen!`;
+  else { const w = weekInfo(wn); where = `Semana ${wn} de ${totalW}: ${esc(w.title)}`; }
+  return `<div class="route">
+    <div class="route-head">
+      <div class="where">${where}</div>
+      <div class="count"><b>${days>=0?days:0}</b><span>días para tu examen oficial (${fmt(examDate())} ${examDate().getFullYear()})</span></div>
+    </div>
+    <div class="line" aria-label="Recorrido de 41 semanas dividido en 4 fases">
+      ${segs}<span class="endstop" title="Examen"></span>
+    </div>
+    <div class="legend">${legend}<div style="flex:none;width:24px"></div></div>
+  </div>`;
+}
+function todayTasks(){
+  const wn = Math.max(1, Math.min(currentWeek(), WEEKS.length)); const ph = weekInfo(wn).ph;
+  return ROUTINE[ph][dowIdx(today0())].map((t,i) => ({id:"t"+i, text:t[0], res:t[1], min:t[2]}));
+}
+function resLink(key){ if (!key) return ""; if (key.startsWith("#")) return `<a href="${key}">Abrir aquí</a>`;
+  const r = R[key]; if (!r) return ""; if (r.u.startsWith("#")) return `<a href="${r.u}">Abrir aquí</a>`;
+  return `<a href="${r.u}" target="_blank" rel="noopener">${esc(r.n)}</a>`; }
+RENDER.hoy = function(){
+  const wn = currentWeek(); const w = weekInfo(Math.max(1,wn)); const p = PHASES[w.ph];
+  const key = ymd(today0()); const rec = state.days[key] || {}; const tasks = todayTasks();
+  const doneP = state.practices.filter(x => x.d===key && x.k==="daily").slice(-1)[0];
+  const isEf = w.flag==="efset";
+  $("#v-hoy").innerHTML = routeHTML() + `
+  <div class="grid2">
+    <div>
+      <div class="panel" style="--c:${p.c}">
+        <span class="chip" style="--c:${p.c}">Fase ${p.n}: ${esc(p.name)}</span>${w.flag==="light"?`<span class="chip">Semana ligera</span>`:""}${isEf?`<span class="chip" style="--c:var(--ex)">Semana de EF SET</span>`:""}
+        <h2>${wn<1?"Tu primera semana":"Esta semana"}: ${esc(w.title)}</h2>
+        <p class="muted small" style="margin:0">${fmt(w.start)} al ${fmt(w.end)}</p>
+        <dl class="focus"><dt>Gramática</dt><dd>${esc(w.g)}</dd><dt>Vocabulario</dt><dd>${esc(w.v)}</dd><dt>Habilidad</dt><dd>${esc(w.skill)}</dd></dl>
+        <h3 style="margin-top:16px">Al terminar la semana podrás…</h3>
+        <ul class="goals">${w.goals.map(g=>`<li>${esc(g)}</li>`).join("")}</ul>
+      </div>
+    </div>
+    <div>
+      <div class="panel">
+        <h3>Rutina de hoy, ${DOW[dowIdx(today0())].toLowerCase()}</h3>
+        <p class="muted small" style="margin:0">${tasks.reduce((a,t)=>a+(t.min||0),0)} minutos en total. Marca cada tarea al terminarla.</p>
+        <ul class="tasks">${tasks.map(t => { const on = rec.tasks && rec.tasks[t.id];
+          return `<li><input type="checkbox" id="task-${t.id}" data-task="${t.id}" ${on?"checked":""}><label for="task-${t.id}"><span class="${on?"done-text":""}">${esc(t.text)}</span><br>${resLink(t.res)}</label><span class="min">${t.min} min</span></li>`; }).join("")}</ul>
+      </div>
+      <div class="panel">
+        <h3>Práctica diaria</h3>
+        ${doneP ? `<p style="margin:.2rem 0 1rem">Hoy hiciste ${doneP.s} de ${doneP.n}. ${doneP.s/doneP.n>=0.8?"¡Excelente trabajo!":"Repasa las explicaciones y sigue así."}</p><a class="btn ghost" href="#practica">Practicar más</a>`
+          : `<p style="margin:.2rem 0 1rem">10 ejercicios de vocabulario, gramática, lectura y escucha de tu nivel. Unos 10 minutos.</p><a class="btn" href="#practica">Empezar la práctica de hoy</a>`}
+      </div>
+      <div class="panel">
+        <div class="row" style="justify-content:space-between"><div><b style="font-stretch:120%;font-size:1.6rem">${streak()}</b> <span class="muted">días de racha</span></div><a class="small" href="#progreso">Ver progreso</a></div>
+        <p class="muted small" style="margin:.3rem 0 0">Los fines de semana no rompen tu racha.</p>
+      </div>
+    </div>
+  </div>`;
+  $("#v-hoy").querySelectorAll("[data-task]").forEach(cb => cb.addEventListener("change", () => {
+    const r = dayRec(key); r.tasks = r.tasks || {}; r.tasks[cb.dataset.task] = cb.checked; save(); RENDER.hoy();
+    if (cb.checked && tasks.every(t => (state.days[key].tasks||{})[t.id])) toast("¡Rutina de hoy completa! 🎉");
+  }));
+};
+
+/* ============ Vista: Plan ============ */
+RENDER.plan = function(){
+  const wn = currentWeek();
+  let html = `<h2>Plan semana a semana</h2><p class="lede">41 semanas, del ${fmtL(START)} al ${fmtL(addDays(START, 41*7-1))}. Cada semana tiene un tema de gramática, uno de vocabulario y una habilidad. Las semanas ligeras coinciden con feriados en Ecuador.</p>
+  <div class="panel" style="margin-bottom:26px"><h3>Antes de elegir examen</h3><p style="margin:0">Revisa en la página de cada programa Erasmus Mundus que te interese qué certificados aceptan y con qué puntaje. Muchos piden IELTS Academic (con frecuencia 6.0–6.5) y no todos aceptan el Duolingo English Test. La semana 33 está reservada para decidir y reservar tu fecha.</p></div>`;
+  for (const k of ["A2","B1","B2","EX"]){
+    const p = PHASES[k];
+    html += `<div class="phase" style="--c:${p.c}"><div class="phase-head"><h3>Fase ${p.n}: ${esc(p.name)}</h3><p style="margin:.2rem 0 0">${esc(p.desc)}</p><p class="muted small" style="margin:.2rem 0 0">Semanas ${p.from}–${p.to}, del ${fmt(addDays(START,(p.from-1)*7))} al ${fmt(addDays(START,p.to*7-1))}. ${esc(p.target)}</p></div>`;
+    for (let n=p.from; n<=p.to; n++){
+      const w = weekInfo(n);
+      let active = 0; for (let i=0;i<7;i++) if (isActive(ymd(addDays(w.start,i)))) active++;
+      const cls = n===wn ? "current" : (n<wn ? "past" : "");
+      html += `<div class="week ${cls}" ${n===wn?'id="semana-actual"':""}><div class="num">${n}<small>${fmt(w.start)}</small></div><div>
+        <h4>${esc(w.title)} ${n===wn?'<span class="chip" style="--c:var(--ink)">Semana actual</span>':""}${w.flag==="efset"?'<span class="chip" style="--c:var(--ex)">EF SET</span>':""}${w.flag==="light"?'<span class="chip">Ligera</span>':""}</h4>
+        <div class="meta">${esc(w.g)}. Vocabulario: ${esc(w.v)}.${n<=wn && n>=1 ? ` Días de estudio: ${active} de 7.` : ""}</div>
+        <ul>${w.goals.map(g=>`<li>${esc(g)}</li>`).join("")}</ul></div></div>`;
+    }
+    html += `</div>`;
+  }
+  $("#v-plan").innerHTML = html;
+  const cur = $("#semana-actual"); if (cur) setTimeout(()=>cur.scrollIntoView({block:"center"}), 30);
+};
+
+/* ============ Práctica ============ */
+let session = null; let tts = null; let sample = null;
+function phaseForPractice(){ const wn = Math.max(1, Math.min(currentWeek(), WEEKS.length)); return levelOfPhase(weekInfo(wn).ph); }
+function buildSet(seedStr, lvl){
+  const r = rng(hash(seedStr)); const b = BANK[lvl]; const items = [];
+  const mcq = (q, opts, exp, tag) => { const idx = shuffle([0,1,2,3].slice(0,opts.length), r); return {t:"mcq", tag, q, o:idx.map(i=>opts[i]), a:idx.indexOf(0), e:exp}; };
+  const vv = shuffle(b.vocab, r); vv.slice(0,4).forEach(v => items.push(mcq(v[0], v[1], v[2], "Vocabulario")));
+  shuffle(b.gram, r).slice(0, 3).forEach(g => {
+    if (g[0]==="type") items.push({t:"type", tag:"Gramática", q:g[1], a:g[2], e:g[3]});
+    else items.push(mcq(g[1], g[2], g[3], "Gramática"));
+  });
+  const rd = shuffle(b.read, r)[0];
+  rd.qs.slice(0,2).forEach(q => { const it = mcq(q[0], q[1], q[2], "Lectura"); it.p = rd.p; it.title = rd.title; items.push(it); });
+  if (tts) items.push({t:"listen", tag:"Escucha", s: shuffle(b.listen, r)[0]});
+  else { const v = vv[4]; items.push(mcq(v[0], v[1], v[2], "Vocabulario")); }
+  return items;
+}
+function startSession(kind, items){ session = {kind, items, i:0, score:0, answered:false, done:false, lvl:phaseForPractice()}; RENDER.practica(); window.scrollTo({top:0}); }
+RENDER.practica = function(){
+  const el = $("#v-practica");
+  if (!session){
+    const lvl = phaseForPractice(); const key = ymd(today0());
+    const done = state.practices.filter(x => x.d===key && x.k==="daily").slice(-1)[0];
+    const wn = Math.max(1, Math.min(currentWeek(), WEEKS.length)); const w = weekInfo(wn);
+    el.innerHTML = `<h2>Práctica</h2><p class="lede">Ejercicios en inglés de nivel ${lvl}, con corrección y explicación en español al momento. Tu puntaje se guarda en Progreso.</p>
+      <div class="grid2"><div>
+        <div class="panel"><h3>Práctica de hoy</h3><p style="margin:.2rem 0 1rem">${done?`Ya la hiciste hoy: ${done.s} de ${done.n}. Puedes repetirla para reforzar.`:"10 ejercicios: vocabulario, gramática, una lectura corta y un dictado."}</p>
+          <button class="btn" id="go-daily">${done?"Repetir la práctica de hoy":"Empezar"}</button></div>
+        <div class="panel"><h3>Práctica extra</h3><p style="margin:.2rem 0 1rem">Una mezcla nueva del banco de ejercicios de tu nivel.</p>
+          <div class="row"><button class="btn ghost" id="go-extra">Práctica extra ${lvl}</button>${lvl!=="A2"?`<button class="btn ghost" id="go-review">Repaso del nivel anterior</button>`:""}</div></div>
+      </div><div>
+        <div class="panel" id="claude-panel" hidden><h3>Ejercicios nuevos con Claude</h3><p style="margin:.2rem 0 1rem">Claude crea 8 ejercicios sobre el tema de esta semana: <b>${esc(w.g)}</b> y <b>${esc(w.v)}</b>.</p>
+          <button class="btn" id="go-claude">Crear ejercicios de esta semana</button><p class="muted small" id="claude-msg" style="margin:.6rem 0 0"></p></div>
+        ${!tts?`<div class="panel"><p class="small muted" style="margin:0">El dictado con audio funciona en Chrome o Edge en tu computador. En este navegador se reemplaza por otro ejercicio.</p></div>`:""}
+      </div></div>`;
+    $("#go-daily").onclick = () => startSession("daily", buildSet("daily-"+key, lvl));
+    $("#go-extra").onclick = () => startSession("extra", buildSet("extra-"+Date.now(), lvl));
+    const rv = $("#go-review"); if (rv) rv.onclick = () => startSession("extra", buildSet("rev-"+Date.now(), lvl==="B2"?"B1":"A2"));
+    if (sample){ $("#claude-panel").hidden = false; $("#go-claude").onclick = genClaude; }
+    return;
+  }
+  if (session.done){
+    const pct = Math.round(session.score/session.items.length*100);
+    el.innerHTML = `<div class="panel qcard"><p class="muted" style="margin:0">Resultado</p><div class="result">${session.score}/${session.items.length}</div>
+      <p style="font-size:1.1rem">${pct>=90?"¡Impecable! Estás lista para más reto.":pct>=70?"¡Muy bien! Repasa las que fallaste y vuelve mañana.":pct>=50?"Vas bien. Lee otra vez las explicaciones; así se aprende.":"Cada error es una pista de qué repasar. Revisa el tema de la semana y vuelve a intentarlo."}</p>
+      <div class="row"><button class="btn" id="back">Volver a Práctica</button><a class="btn ghost" href="#hoy">Ir a Hoy</a></div></div>`;
+    $("#back").onclick = () => { session = null; RENDER.practica(); };
+    return;
+  }
+  const it = session.items[session.i]; const n = session.items.length;
+  let body = "";
+  if (it.p) body += `<div class="passage"><b>${esc(it.title)}</b>${tts?` <button class="btn small ghost" id="read-aloud" style="margin-left:8px">Escuchar texto</button>`:""}<br>${esc(it.p).replace(/\n/g,"<br>")}</div>`;
+  if (it.t==="mcq"){
+    body += `<p class="q">${esc(it.q)}</p><div class="opts">${it.o.map((o,i)=>`<button class="opt" data-i="${i}">${esc(o)}</button>`).join("")}</div>`;
+  } else if (it.t==="type"){
+    body += `<p class="q">${esc(it.q)}</p><p class="muted small">Escribe solo la parte que falta.</p><div class="row"><input class="answer" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" style="flex:1;min-width:200px" aria-label="Tu respuesta"><button class="btn" id="check">Comprobar</button></div>`;
+  } else if (it.t==="listen"){
+    body += `<p class="q">Escucha y escribe la oración exactamente como la oyes.</p><div class="row" style="margin-bottom:12px"><button class="btn ghost" id="play">Escuchar</button><button class="btn ghost" id="slow">Escuchar despacio</button></div>
+      <div class="row"><input class="answer" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" style="flex:1;min-width:200px" aria-label="Lo que escuchaste"><button class="btn" id="check">Comprobar</button></div>`;
+  }
+  el.innerHTML = `<div class="qcard"><div class="row" style="justify-content:space-between"><span class="chip" style="--c:var(--b2)">${esc(it.tag)}</span><span class="muted small">${session.i+1} de ${n}</span></div>
+    <div class="progressbar"><i style="width:${(session.i)/n*100}%"></i></div>${body}<div id="fb"></div>
+    <div class="row" style="margin-top:18px"><button class="btn ghost small" id="quit">Salir</button></div></div>`;
+  $("#quit").onclick = () => { if (session.i===0 || confirm("¿Salir? Esta práctica no se guardará.")) { session = null; RENDER.practica(); } };
+  const ra = $("#read-aloud"); if (ra) ra.onclick = () => speak(it.p, 1);
+  if (it.t==="mcq") el.querySelectorAll(".opt").forEach(b => b.onclick = () => answerMcq(+b.dataset.i));
+  if (it.t!=="mcq"){
+    const inp = $("#ans"); inp.focus(); inp.addEventListener("keydown", e => { if (e.key==="Enter" && !session.answered) $("#check").click(); });
+    $("#check").onclick = () => it.t==="type" ? answerType(inp.value) : answerListen(inp.value);
+  }
+  if (it.t==="listen"){ $("#play").onclick = () => speak(it.s, 0.95); $("#slow").onclick = () => speak(it.s, 0.72); }
+};
+function feedback(ok, html){
+  session.answered = true; if (ok) session.score++;
+  const last = session.i === session.items.length-1;
+  $("#fb").innerHTML = `<div class="fb" style="--c:${ok?"var(--ok)":"var(--bad)"}"><strong>${ok?["¡Correcto!","¡Muy bien!","¡Eso es!","¡Perfecto!"][session.i%4]:"Casi. Mira la explicación:"}</strong>${html}</div>
+    <div class="row" style="margin-top:14px"><button class="btn" id="next">${last?"Ver resultado":"Siguiente"}</button></div>`;
+  const nx = $("#next"); nx.focus(); nx.onclick = nextQ;
+}
+function answerMcq(i){
+  if (session.answered) return; const it = session.items[session.i];
+  document.querySelectorAll(".opt").forEach((b,j) => { b.disabled = true; if (j===it.a) b.classList.add("right"); else if (j===i) b.classList.add("wrong"); });
+  feedback(i===it.a, `<p>${esc(it.e)}</p>`);
+}
+function answerType(v){
+  if (session.answered || !v.trim()) return; const it = session.items[session.i];
+  const ok = it.a.some(a => norm(a)===norm(v)); $("#ans").disabled = true;
+  feedback(ok, `<p>${ok?"":`Respuesta correcta: <b>${esc(it.a[0].replace(/'/g,"’"))}</b>. `}${esc(it.e)}</p>`);
+}
+function answerListen(v){
+  if (session.answered || !v.trim()) return; const it = session.items[session.i];
+  const target = norm(it.s).split(" "); const got = norm(v).split(" ");
+  let j = 0; const marks = target.map(w => { const k = got.indexOf(w, j); if (k>=0){ j = k+1; return {w, ok:true}; } return {w, ok:false}; });
+  const okCount = marks.filter(m=>m.ok).length; const ok = okCount===target.length && got.length===target.length;
+  $("#ans").disabled = true;
+  feedback(ok, `<p>La oración era: <i>${esc(it.s)}</i></p>${ok?"":`<p>Palabras que faltaron o cambiaron: ${marks.map(m=>m.ok?esc(m.w):`<span class="miss">${esc(m.w)}</span>`).join(" ")}</p><p class="small muted">Acertaste ${okCount} de ${target.length} palabras. Escúchala de nuevo leyendo el texto.</p>`}`);
+}
+function nextQ(){
+  session.i++; session.answered = false;
+  if (session.i >= session.items.length){
+    session.done = true; const key = ymd(today0());
+    state.practices.push({d:key, k:session.kind, s:session.score, n:session.items.length, l:session.lvl});
+    if (state.practices.length > 600) state.practices = state.practices.slice(-600);
+    dayRec(key).practiced = true; save();
+  }
+  RENDER.practica(); window.scrollTo({top:0});
+}
+async function speak(text, rate){
+  if (!tts) return;
+  try { await tts.speak(text, {language:"en", rate}); }
+  catch(e){ if (e && e.code==="not_granted"){ tts = null; toast("El audio está desactivado para esta página."); } }
+}
+async function genClaude(){
+  const btn = $("#go-claude"), msg = $("#claude-msg"); btn.disabled = true; msg.textContent = "Claude está preparando tus ejercicios…";
+  const wn = Math.max(1, Math.min(currentWeek(), WEEKS.length)); const w = weekInfo(wn); const lvl = levelOfPhase(w.ph);
+  const prompt = `Create 8 English exercises for a Spanish-speaking learner (a 22-year-old software engineering student from Ecuador) at CEFR level ${lvl}.
+This week's grammar: ${w.g}. This week's vocabulary: ${w.v}.
+Mix: 5 grammar questions on this week's grammar and 3 vocabulary questions on this week's topic. Use natural, realistic sentences (work, university, technology, travel, daily life in Ecuador).
+Each exercise is multiple choice with exactly 4 options and exactly one correct answer.
+Reply with only a JSON array, no other text. Each item: {"q": "sentence with ___ for the gap or a question", "o": ["option1","option2","option3","option4"], "a": index of the correct option (0-3), "e": "short explanation in Spanish (1-2 sentences) of why the answer is correct"}.`;
+  try {
+    const data = await sample.json(prompt, {modelTier:"default"});
+    const items = (Array.isArray(data)?data:[]).filter(x => x && typeof x.q==="string" && Array.isArray(x.o) && x.o.length>=2 && x.o.length<=5 && Number.isInteger(x.a) && x.a>=0 && x.a<x.o.length)
+      .slice(0,10).map(x => ({t:"mcq", tag:"Creado por Claude", q:x.q, o:x.o.map(String), a:x.a, e:String(x.e||"")}));
+    if (items.length < 3) throw {code:"bad"};
+    startSession("claude", items);
+  } catch(e){
+    btn.disabled = false;
+    msg.textContent = e && e.code==="not_granted" ? "No diste permiso para usar Claude en esta página. Puedes seguir con las prácticas del banco." :
+      e && e.code==="rate_limited" ? "Se alcanzó el límite de uso por ahora. Intenta más tarde." : "No se pudieron crear los ejercicios. Inténtalo de nuevo.";
+  }
+}
+
+/* ============ Conversación ============ */
+let convo = []; let dict = null; let convBusy = false;
+try { const c = JSON.parse(localStorage.getItem(LS_KEY+"-chat")||"[]"); if (Array.isArray(c)) convo = c.slice(-30); } catch(e){}
+function convoRules(){
+  const wn = Math.max(1, Math.min(currentWeek(), WEEKS.length)); const w = weekInfo(wn); const lvl = levelOfPhase(w.ph);
+  const style = {A2:"very simple English: short sentences, common words, present/past simple, and going to", B1:"clear everyday English with some idioms and phrasal verbs, at a natural but not fast pace", B2:"rich, natural English with academic vocabulary, and exam-style follow-up questions (like IELTS speaking parts 1 and 3)"}[lvl];
+  return `You are a warm, patient English conversation partner for Danna, a 22-year-old software engineering student from Ecuador who works 7:30-16:30 and is preparing for a B2 certificate to apply for an Erasmus Mundus master's in Europe. She reads technical English well but finds speaking and writing hard.
+Her level this week: ${lvl}. Week ${wn} focus: grammar "${w.g}", vocabulary "${w.v}", skill "${w.skill}".
+Rules:
+1. Use ${style}.
+2. Keep each reply to 2-4 sentences and end with exactly ONE question that invites her to use this week's grammar.
+3. From her second message onward, start your reply with a line "✏️ Correcciones:" followed by up to 3 corrections IN SPANISH, each on its own line as: "lo que escribiste" → "versión correcta" (explicación muy breve y cariñosa). If there are no mistakes write "✏️ ¡Sin errores!" plus a short compliment in Spanish. Also praise one thing she did well.
+4. Then a blank line, then your reply in English.
+5. If she writes in Spanish or says she doesn't know how to say something, give her the English version and encourage her to try.
+6. Plain text only: no markdown, no headers, no bullet symbols.`;
+}
+RENDER.conversar = function(){
+  const wn = Math.max(1, Math.min(currentWeek(), WEEKS.length)); const w = weekInfo(wn); const lvl = levelOfPhase(w.ph);
+  const chatPrompt = `Hola Claude, practiquemos conversación en inglés. Estoy en la semana ${wn} de mi plan (nivel ${lvl}). Gramática de la semana: ${w.g}. Vocabulario: ${w.v}. Habla a mi nivel, hazme una pregunta a la vez y corrígeme con cariño en español al inicio de cada respuesta.`;
+  $("#v-conversar").innerHTML = `<h2>Conversación</h2><p class="lede">Practica speaking escribiendo o hablando. Claude te responde a tu nivel (${lvl}) usando el tema de la semana ${wn} y te corrige con cariño en español.</p>
+    <div class="grid2"><div class="panel">
+      <div id="chat-on" hidden>
+        <div class="chat" id="chat" aria-live="polite"></div>
+        <div class="composer"><textarea id="msg" placeholder="Write in English… (Enter para enviar)" aria-label="Tu mensaje"></textarea>
+          <button class="btn ghost mic" id="mic" hidden aria-label="Hablar">🎙️</button><button class="btn" id="send">Enviar</button></div>
+        <div class="row" style="margin-top:10px"><button class="btn ghost small" id="restart">Nueva conversación</button><span class="muted small" id="chat-note"></span></div>
+      </div>
+      <div id="chat-off"><p style="margin-top:0">La conversación dentro de esta página necesita el permiso para usar Claude. Mientras tanto, copia esta indicación y pégala en un chat con Claude:</p></div>
+    </div>
+    <div class="panel"><h3>Para practicar en el chat de Claude</h3><p class="small" style="margin-top:0">Pega esto al empezar un chat nuevo. Se actualiza sola cada semana con tu nivel y tema.</p>
+      <textarea class="promptbox" id="cp" readonly>${esc(chatPrompt)}</textarea><button class="btn ghost small" id="copy" style="margin-top:8px">Copiar indicación</button>
+      <h3 style="margin-top:18px">Consejos</h3><ul class="goals small"><li>Usa el micrófono para practicar pronunciación (en Chrome o Edge).</li><li>Toca “Escuchar” en cada respuesta para entrenar tu oído.</li><li>Copia en tu cuaderno las correcciones que se repiten.</li></ul></div></div>`;
+  $("#copy").onclick = async () => { const ta = $("#cp"); try { await navigator.clipboard.writeText(ta.value); toast("Indicación copiada"); } catch(e){ ta.select(); toast("Selecciónala y cópiala manualmente"); } };
+  if (!sample) return;
+  $("#chat-on").hidden = false; $("#chat-off").hidden = true;
+  drawChat();
+  const msg = $("#msg");
+  msg.addEventListener("keydown", e => { if (e.key==="Enter" && !e.shiftKey){ e.preventDefault(); sendMsg(); } });
+  $("#send").onclick = sendMsg;
+  $("#restart").onclick = () => { convo = []; saveChat(); drawChat(); };
+  if (dict){ const mic = $("#mic"); mic.hidden = false;
+    mic.onclick = () => {
+      if (dict.active()){ dict.stop().catch(()=>{}); return; }
+      dict.start({language:"en"}).catch(e => { if (e && (e.code==="not_granted" || e.code==="unavailable")){ mic.hidden = true; } $("#chat-note").textContent = e && e.code==="not_granted" ? "Micrófono no permitido." : ""; });
+    };
+  }
+};
+function saveChat(){ try { localStorage.setItem(LS_KEY+"-chat", JSON.stringify(convo.slice(-30))); } catch(e){} }
+function drawChat(streamText){
+  const box = $("#chat"); if (!box) return; box.innerHTML = "";
+  if (!convo.length && streamText===undefined){
+    const p = document.createElement("div"); p.className = "bubble ai"; p.textContent = "Hi Danna! 👋 Press “Empezar” and I’ll ask you the first question, or just write me something in English.";
+    box.appendChild(p);
+    const b = document.createElement("button"); b.className = "btn small"; b.textContent = "Empezar"; b.style.alignSelf = "flex-start";
+    b.onclick = () => sendMsg("Hi! Please greet me and ask me your first question about this week's topic. No corrections in this first message.", true);
+    box.appendChild(b);
+  }
+  convo.forEach(m => { if (m.hidden) return; const d = document.createElement("div"); d.className = "bubble "+(m.role==="user"?"me":"ai"); d.textContent = m.content;
+    if (m.role==="assistant" && tts){ const s = document.createElement("button"); s.className = "say"; s.textContent = "🔊 Escuchar"; s.onclick = () => speak(englishPart(m.content), 0.95); d.appendChild(document.createElement("br")); d.appendChild(s); }
+    box.appendChild(d); });
+  if (streamText!==undefined){ const d = document.createElement("div"); d.className = "bubble ai"; d.textContent = streamText || "Pensando…"; box.appendChild(d); }
+  box.scrollTop = box.scrollHeight;
+}
+function englishPart(t){ const parts = t.split(/\n\s*\n/); return parts.length>1 && /Correcciones|Sin errores/.test(parts[0]) ? parts.slice(1).join("\n\n") : t; }
+async function sendMsg(text, hidden){
+  if (convBusy) return;
+  const msg = $("#msg"); const content = typeof text==="string" ? text : msg.value.trim(); if (!content) return;
+  if (!hidden) msg.value = "";
+  convo.push({role:"user", content, hidden: !!hidden}); drawChat(""); convBusy = true; $("#send").disabled = true;
+  try {
+    const turns = [{role:"user", content: convoRules()}, ...convo.slice(-20).map(m => ({role:m.role, content:m.content}))];
+    const {text: reply} = await sample(turns, {cache:false, onText: ({text}) => drawChat(text)});
+    convo.push({role:"assistant", content: reply}); saveChat();
+    const key = ymd(today0()); const r = dayRec(key); r.talk = (r.talk||0)+1; save();
+  } catch(e){
+    convo.pop();
+    $("#chat-note").textContent = e && e.code==="not_granted" ? "No diste permiso para usar Claude aquí. Usa la indicación de la derecha en el chat." : e && e.code==="rate_limited" ? "Límite alcanzado por ahora. Intenta más tarde." : "No se pudo enviar. Inténtalo de nuevo.";
+    if (!hidden) msg.value = content;
+  } finally { convBusy = false; $("#send").disabled = false; drawChat(); }
+}
+
+/* ============ Progreso ============ */
+function lineChart(points, opts){
+  // points: [{x:label, y:number}] ; y en 0..100
+  const W = 640, H = 220, L = 34, B = 26, T = 12, Rr = 10;
+  if (!points.length) return `<p class="muted">${opts.empty}</p>`;
+  const lo = opts.min ?? 0, hi = opts.max ?? 100; const n = points.length; const xs = i => L + (n===1 ? (W-L-Rr)/2 : i*(W-L-Rr)/(n-1)); const ys = v => T + (hi - Math.max(lo, Math.min(hi, v)))/(hi-lo)*(H-T-B);
+  const lab = (x,y,txt,anchor,col,bold) => `<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="11" style="fill:${col}${bold?";font-weight:700":""}">${txt}</text>`;
+  let g = "";
+  (opts.bands||[]).forEach(b => { g += `<rect x="${L}" y="${ys(b.to)}" width="${W-L-Rr}" height="${ys(b.from)-ys(b.to)}" style="fill:${b.c};opacity:.13"/>` + lab(W-Rr-4, ys(b.to)+13, b.l, "end", b.c, true); });
+  if (opts.bands) [30,40,50,60,70].forEach(v => g += lab(L-6, ys(v)+4, v, "end", "var(--muted)"));
+  else [0,25,50,75,100].forEach(v => { g += `<line x1="${L}" x2="${W-Rr}" y1="${ys(v)}" y2="${ys(v)}" style="stroke:var(--line)"/>` + lab(L-6, ys(v)+4, v, "end", "var(--muted)"); });
+  if (opts.target!=null) g += `<line x1="${L}" x2="${W-Rr}" y1="${ys(opts.target)}" y2="${ys(opts.target)}" style="stroke:var(--ex);stroke-dasharray:5 4;stroke-width:1.5"/>`;
+  const path = points.map((p,i)=>`${i?"L":"M"}${xs(i).toFixed(1)},${ys(p.y).toFixed(1)}`).join(" ");
+  g += `<path d="${path}" style="fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linejoin:round"/>`;
+  points.forEach((p,i) => { g += `<circle cx="${xs(i)}" cy="${ys(p.y)}" r="4" style="fill:var(--surface);stroke:var(--ink);stroke-width:2"><title>${esc(p.x)}: ${p.y}</title></circle>`; });
+  const step = Math.ceil(n/8);
+  points.forEach((p,i) => { if (i%step===0 || i===n-1) g += lab(xs(i), H-6, esc(p.x), "middle", "var(--muted)"); });
+  return `<div class="tablewrap"><svg viewBox="0 0 ${W} ${H}" style="width:100%;min-width:420px;height:auto" role="img" aria-label="${esc(opts.label)}">${g}</svg></div>`;
+}
+RENDER.progreso = function(){
+  const t = today0(); const startHeat = START < t ? START : addDays(t, -dowIdx(t));
+  const activeDays = Object.keys(state.days).filter(isActive).length;
+  const last10 = state.practices.slice(-10); const avg = last10.length ? Math.round(last10.reduce((a,p)=>a+p.s/p.n,0)/last10.length*100) : null;
+  // heatmap
+  let heat = ""; let d = new Date(startHeat); const endHeat = addDays(START, 41*7-1);
+  for (let i=0; i<dowIdx(d); i++) heat += `<i class="fut" style="visibility:hidden"></i>`;
+  while (d <= endHeat){ const k = ymd(d); const a = isActive(k); const fut = d > t;
+    heat += `<i class="${fut?"fut":a===2?"l2":a===1?"l1":""} ${k===ymd(t)?"today":""}" title="${fmt(d)}${a?": estudiaste":""}"></i>`; d = addDays(d,1); }
+  const pts = state.practices.slice(-30).map(p => ({x: fmt(parseYmd(p.d)), y: Math.round(p.s/p.n*100)}));
+  const ef = state.efset.slice().sort((a,b)=>a.d.localeCompare(b.d));
+  const efPts = ef.map(e => ({x: fmt(parseYmd(e.d)), y: e.s}));
+  const efWeeks = WEEKS.map((w,i)=>[w,i]).filter(([w])=>w[6]==="efset").map(([w,i]) => `Semana ${i+1} (${fmt(addDays(START,i*7))})`);
+  const s = state.settings;
+  $("#v-progreso").innerHTML = `<h2>Tu progreso</h2><p class="lede">Un día cuenta como estudiado cuando haces la práctica diaria o marcas al menos una tarea de tu rutina.</p>
+    <div class="stats">
+      <div class="stat"><b>${activeDays}</b><span>días estudiados</span></div>
+      <div class="stat"><b>${streak()}</b><span>días de racha actual</span></div>
+      <div class="stat"><b>${bestStreak()}</b><span>mejor racha</span></div>
+      <div class="stat"><b>${avg==null?"–":avg+"%"}</b><span>promedio de tus últimas 10 prácticas</span></div>
+    </div>
+    <div class="panel"><h3>Calendario de estudio</h3><p class="muted small" style="margin-top:0">Cada columna es una semana, de lunes a domingo. Verde intenso: hiciste la práctica. Verde claro: solo tareas.</p><div class="heat">${heat}</div></div>
+    <div class="panel"><h3>Puntajes de tus prácticas</h3>${lineChart(pts,{label:"Porcentaje de aciertos en tus últimas prácticas", empty:"Aún no hay prácticas. Haz la de hoy y aparecerá aquí.", target:80})}
+      <p class="muted small">Línea punteada: 80%, la meta para sentir dominado un tema.</p>
+      ${state.practices.length?`<div class="tablewrap"><table><thead><tr><th>Fecha</th><th>Tipo</th><th>Nivel</th><th>Puntaje</th></tr></thead><tbody>${state.practices.slice(-8).reverse().map(p=>`<tr><td>${fmt(parseYmd(p.d))}</td><td>${p.k==="daily"?"Diaria":p.k==="claude"?"Con Claude":"Extra"}</td><td>${esc(p.l||"")}</td><td>${p.s}/${p.n}</td></tr>`).join("")}</tbody></table></div>`:""}</div>
+    <div class="panel"><h3>Resultados del EF SET</h3><p class="small" style="margin-top:0">Fechas sugeridas: ${efWeeks.join(", ")}. Haz el test de 50 minutos en <a href="https://www.efset.org" target="_blank" rel="noopener">efset.org</a> y registra tu puntaje (0–100).</p>
+      ${lineChart(efPts,{label:"Evolución de tu puntaje EF SET", empty:"Registra tu primer EF SET para ver tu evolución.", bands:[{from:31,to:40,c:"var(--a2)",l:"A2"},{from:41,to:50,c:"var(--b1)",l:"B1"},{from:51,to:60,c:"var(--b2)",l:"B2"},{from:61,to:70,c:"var(--ex)",l:"C1"}], target:51, min:20, max:80})}
+      <div class="row" style="margin-top:12px;align-items:flex-end">
+        <label class="field">Fecha<input type="date" id="ef-d" value="${ymd(t)}"></label>
+        <label class="field">Puntaje (0–100)<input type="number" id="ef-s" min="0" max="100" inputmode="numeric" style="width:120px"></label>
+        <button class="btn" id="ef-add">Guardar resultado</button>
+      </div><p class="small" id="ef-msg" style="color:var(--bad);margin:.4rem 0 0"></p>
+      ${ef.length?`<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Fecha</th><th>Puntaje</th><th>Nivel</th><th></th></tr></thead><tbody>${ef.map(e=>`<tr><td>${fmtL(parseYmd(e.d))}</td><td>${e.s}</td><td><b>${efLevel(e.s)}</b></td><td><button class="btn ghost small" data-del="${esc(e.d)}|${e.s}">Borrar</button></td></tr>`).join("")}</tbody></table></div>`:""}
+    </div>
+    <div class="panel"><h3>Tu examen oficial</h3><p class="small" style="margin-top:0">Cambia la fecha cuando la reserves. El contador de la portada se actualiza solo.</p>
+      <div class="row" style="align-items:flex-end">
+        <label class="field">Fecha del examen<input type="date" id="ex-d" value="${esc(s.examDate)}" min="${ymd(t)}"></label>
+        <label class="field">Examen<select id="ex-t"><option value="ielts" ${s.examType==="ielts"?"selected":""}>IELTS Academic</option><option value="det" ${s.examType==="det"?"selected":""}>Duolingo English Test</option><option value="nd" ${s.examType==="nd"?"selected":""}>Aún no lo decido</option></select></label>
+        <button class="btn" id="ex-save">Guardar</button>
+      </div></div>`;
+  $("#ef-add").onclick = () => { const dv = $("#ef-d").value, sv = Number($("#ef-s").value);
+    if (!dv || !Number.isFinite(sv) || sv<0 || sv>100 || $("#ef-s").value===""){ $("#ef-msg").textContent = "Escribe una fecha y un puntaje entre 0 y 100."; return; }
+    state.efset.push({d:dv, s:Math.round(sv)}); save(); RENDER.progreso(); toast(`Guardado: ${Math.round(sv)} puntos, nivel ${efLevel(sv)}`); };
+  $("#v-progreso").querySelectorAll("[data-del]").forEach(b => b.onclick = () => { const [dd, ss] = b.dataset.del.split("|"); const i = state.efset.findIndex(e => e.d===dd && String(e.s)===ss); if (i>=0 && confirm("¿Borrar este resultado?")){ state.efset.splice(i,1); save(); RENDER.progreso(); } });
+  $("#ex-save").onclick = () => { const dv = $("#ex-d").value; if (!dv) return; state.settings.examDate = dv; state.settings.examType = $("#ex-t").value; save(); toast("Fecha del examen guardada"); };
+};
+
+/* ============ Recursos ============ */
+let resPhase = null;
+RENDER.recursos = function(){
+  const wn = Math.max(1, Math.min(currentWeek(), WEEKS.length)); const cur = weekInfo(wn).ph; const ph = resPhase || cur; const p = PHASES[ph];
+  const td = dowIdx(today0());
+  const days = ROUTINE[ph].map((tasks,i) => `<div class="day ${ph===cur && i===td?"today":""}"><b>${DOW[i]}</b><ul>${tasks.map(t=>`<li>${esc(t[0])} <span class="muted">(${t[2]} min)</span></li>`).join("")}</ul></div>`).join("");
+  const cards = PHASE_RES[ph].map(k => { const r = R[k]; const ext = !r.u.startsWith("#");
+    return `<a class="card" href="${r.u}" ${ext?'target="_blank" rel="noopener"':""}><b>${esc(r.n)}</b><span>${esc(r.d)}</span></a>`; }).join("");
+  $("#v-recursos").innerHTML = `<h2>Recursos gratuitos</h2><p class="lede">Qué usar cada día según tu fase. Todo es gratuito; solo el examen oficial tiene costo.</p>
+    <div class="seg-ctrl" role="group" aria-label="Elegir fase">${["A2","B1","B2","EX"].map(k=>`<button data-ph="${k}" aria-pressed="${k===ph}">Fase ${PHASES[k].n}${k===cur?" (actual)":""}</button>`).join("")}</div>
+    <h3 style="color:${p.c}">Semana tipo de la fase ${p.n}: ${esc(p.name)}</h3>
+    <p class="muted small" style="margin-top:0">Entre semana, 30–45 minutos después del trabajo. Fines de semana, un bloque más largo.</p>
+    <div class="days">${days}</div>
+    <h3 style="margin-top:26px">Recursos de esta fase</h3><div class="res">${cards}</div>`;
+  $("#v-recursos").querySelectorAll("[data-ph]").forEach(b => b.onclick = () => { resPhase = b.dataset.ph; RENDER.recursos(); });
+};
+
+/* ============ Inicio ============ */
+showView();
+initStorage();
+(async () => {
+  const [t, s, d] = await Promise.all([useCap("tts"), useCap("sample"), useCap("dictation")]);
+  tts = t; sample = s; dict = d;
+  if (dict){
+    dict.onFinal(({text}) => { const m = $("#msg"); if (m){ m.value = (m.value ? m.value : text.trimStart()) + (m.value ? text : ""); } });
+    dict.onState(({state:st}) => { const mic = $("#mic"); if (mic) mic.classList.toggle("on", st!=="idle"); });
+  }
+  const v = currentView();
+  if (!(v==="practica" && session)) render(v);
+})();
+</script>
+</body>
+</html>
