@@ -1,4 +1,5 @@
-import { PLAN_START, WEEKS, type Week } from '../data/weeks';
+import { WEEKS, type Week } from '../data/weeks';
+import type { Level } from '../data/phases';
 
 export const DAY_MS = 86_400_000;
 const MONTHS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
@@ -37,8 +38,33 @@ export const formatLong = (d: Date) => `${d.getDate()} de ${MONTHS_LONG[d.getMon
 
 export const TOTAL_WEEKS = WEEKS.length;
 
+/** Lunes de la semana de una fecha */
+export const mondayOf = (d: Date) => addDays(d, -weekdayIndex(d));
+
+/*
+ * Inicio del plan. Cada persona tiene el suyo (se guarda en su perfil).
+ * App lo configura con setPlanStart() al cargar; el resto de funciones lo leen.
+ * Si alguien empieza en B1, su "semana 1" queda en el pasado y hoy ya es la semana 13.
+ */
+let planStart = mondayOf(today());
+
+export function setPlanStart(date: Date): void {
+  planStart = date;
+}
+
+export const getPlanStart = () => planStart;
+
+/** Semana en la que empieza cada nivel inicial */
+export const START_WEEK: Record<Level | 'A1', number> = { A1: 1, A2: 1, B1: 13, B2: 26 };
+
+/** Fecha de inicio del plan para alguien que empieza hoy con ese nivel */
+export const planStartFor = (level: Level | 'A1', from: Date = today()) => addDays(mondayOf(from), -(START_WEEK[level] - 1) * 7);
+
+/** Sábado de la última semana del plan: la fecha de examen sugerida */
+export const suggestedExamDate = (start: Date) => addDays(start, WEEKS.length * 7 - 2);
+
 /** Número de semana del plan para una fecha (0 o menos = antes del inicio) */
-export const weekNumberFor = (d: Date) => Math.floor(daysBetween(PLAN_START, d) / 7) + 1;
+export const weekNumberFor = (d: Date) => Math.floor(daysBetween(planStart, d) / 7) + 1;
 
 /** Semana actual limitada al rango 1..41 */
 export const currentWeekNumber = () => Math.min(Math.max(weekNumberFor(today()), 1), TOTAL_WEEKS);
@@ -51,6 +77,6 @@ export interface WeekInfo extends Week {
 
 export function getWeek(n: number): WeekInfo {
   const number = Math.min(Math.max(n, 1), TOTAL_WEEKS);
-  const start = addDays(PLAN_START, (number - 1) * 7);
+  const start = addDays(planStart, (number - 1) * 7);
   return { ...WEEKS[number - 1], number, start, end: addDays(start, 6) };
 }
