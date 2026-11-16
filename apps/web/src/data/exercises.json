@@ -1,0 +1,1311 @@
+{
+  "A2": {
+    "vocab": [
+      {
+        "question": "The opposite of “cheap” is ___.",
+        "options": [
+          "expensive",
+          "easy",
+          "short",
+          "early"
+        ],
+        "explanation": "cheap = barato; expensive = caro."
+      },
+      {
+        "question": "I can’t find my keys. Can you help me look ___ them?",
+        "options": [
+          "for",
+          "at",
+          "after",
+          "on"
+        ],
+        "explanation": "look for = buscar. Look at = mirar, look after = cuidar."
+      },
+      {
+        "question": "My brother works in a hospital. He takes care of patients. He’s a ___.",
+        "options": [
+          "nurse",
+          "lawyer",
+          "chef",
+          "pilot"
+        ],
+        "explanation": "nurse = enfermero/a."
+      },
+      {
+        "question": "It’s very cold today. Take your ___.",
+        "options": [
+          "jacket",
+          "sunglasses",
+          "sandals",
+          "swimsuit"
+        ],
+        "explanation": "jacket = chaqueta, para el frío."
+      },
+      {
+        "question": "“Actually” means ___.",
+        "options": [
+          "en realidad",
+          "actualmente",
+          "activamente",
+          "exactamente"
+        ],
+        "explanation": "Falso amigo: actually = en realidad. “Actualmente” se dice currently o nowadays."
+      },
+      {
+        "question": "I’m very ___ in technology, so I study software engineering.",
+        "options": [
+          "interested",
+          "interesting",
+          "boring",
+          "bored"
+        ],
+        "explanation": "Las personas están interested (interesadas); las cosas son interesting."
+      },
+      {
+        "question": "Can you ___ me your notes? I’ll give them back tomorrow.",
+        "options": [
+          "lend",
+          "borrow",
+          "take",
+          "bring"
+        ],
+        "explanation": "lend = prestar (dar). Borrow = pedir prestado (recibir)."
+      },
+      {
+        "question": "The bus was late, so I ___ the class.",
+        "options": [
+          "missed",
+          "lost",
+          "failed",
+          "left"
+        ],
+        "explanation": "miss = perder un bus, una clase o una oportunidad. Lose = perder un objeto."
+      },
+      {
+        "question": "I go to work ___ bus every day.",
+        "options": [
+          "by",
+          "on",
+          "in",
+          "with"
+        ],
+        "explanation": "Medio de transporte en general: by bus, by car, by plane."
+      },
+      {
+        "question": "She ___ a lot of photos on her trip.",
+        "options": [
+          "took",
+          "made",
+          "did",
+          "had"
+        ],
+        "explanation": "take a photo = tomar una foto."
+      },
+      {
+        "question": "In Ecuador, a university ___ in engineering usually takes about five years.",
+        "options": [
+          "degree",
+          "career",
+          "title",
+          "race"
+        ],
+        "explanation": "degree = título o carrera universitaria. Career = trayectoria profesional (falso amigo)."
+      },
+      {
+        "question": "“Library” means ___.",
+        "options": [
+          "biblioteca",
+          "librería",
+          "laboratorio",
+          "oficina"
+        ],
+        "explanation": "Falso amigo: library = biblioteca. Librería = bookstore."
+      },
+      {
+        "question": "The meeting starts at 9, so please be on ___.",
+        "options": [
+          "time",
+          "hour",
+          "clock",
+          "moment"
+        ],
+        "explanation": "on time = puntual, a tiempo."
+      },
+      {
+        "question": "My office is on the third ___.",
+        "options": [
+          "floor",
+          "ground",
+          "roof",
+          "flat"
+        ],
+        "explanation": "floor = piso de un edificio."
+      },
+      {
+        "question": "I’m tired. I’m going to ___ a break.",
+        "options": [
+          "take",
+          "do",
+          "make",
+          "give"
+        ],
+        "explanation": "take a break = tomar un descanso."
+      },
+      {
+        "question": "My sister is very ___. She talks to everyone at parties.",
+        "options": [
+          "friendly",
+          "shy",
+          "quiet",
+          "lazy"
+        ],
+        "explanation": "friendly = amigable, sociable. Shy = tímida."
+      }
+    ],
+    "grammar": [
+      {
+        "type": "mcq",
+        "question": "She ___ to university every day.",
+        "options": [
+          "goes",
+          "go",
+          "is go",
+          "going"
+        ],
+        "explanation": "Presente simple con he / she / it: el verbo lleva -s o -es (goes)."
+      },
+      {
+        "type": "mcq",
+        "question": "Right now I ___ for my exam.",
+        "options": [
+          "am studying",
+          "study",
+          "studies",
+          "studied"
+        ],
+        "explanation": "Right now indica una acción en progreso: presente continuo (am + -ing)."
+      },
+      {
+        "type": "type",
+        "question": "Yesterday I ___ to the gym. (go)",
+        "answers": [
+          "went"
+        ],
+        "explanation": "Go es irregular: go → went → gone."
+      },
+      {
+        "type": "mcq",
+        "question": "___ you finish the project last week?",
+        "options": [
+          "Did",
+          "Do",
+          "Were",
+          "Have"
+        ],
+        "explanation": "Preguntas en pasado simple con did + verbo base."
+      },
+      {
+        "type": "type",
+        "question": "There ___ many people at the party last night. (be)",
+        "answers": [
+          "were"
+        ],
+        "explanation": "There were para plural en pasado; there was para singular."
+      },
+      {
+        "type": "mcq",
+        "question": "How ___ water do you drink every day?",
+        "options": [
+          "much",
+          "many",
+          "a lot",
+          "few"
+        ],
+        "explanation": "Water es incontable: how much. Para contables se usa how many."
+      },
+      {
+        "type": "mcq",
+        "question": "Quito is ___ than Guayaquil.",
+        "options": [
+          "colder",
+          "more cold",
+          "coldest",
+          "the colder"
+        ],
+        "explanation": "Adjetivos cortos: -er + than (colder than)."
+      },
+      {
+        "type": "mcq",
+        "question": "This is the ___ day of my life!",
+        "options": [
+          "best",
+          "better",
+          "good",
+          "most good"
+        ],
+        "explanation": "Superlativo irregular de good: the best."
+      },
+      {
+        "type": "mcq",
+        "question": "I ___ visit my grandparents this weekend. I already bought the tickets.",
+        "options": [
+          "am going to",
+          "will",
+          "going",
+          "go to"
+        ],
+        "explanation": "Plan ya decidido: be going to."
+      },
+      {
+        "type": "mcq",
+        "question": "Have you ever ___ sushi?",
+        "options": [
+          "eaten",
+          "ate",
+          "eat",
+          "eating"
+        ],
+        "explanation": "Presente perfecto: have + participio (eat → ate → eaten)."
+      },
+      {
+        "type": "mcq",
+        "question": "You look tired. You ___ go to bed early.",
+        "options": [
+          "should",
+          "mustn’t",
+          "can",
+          "would"
+        ],
+        "explanation": "should para dar consejos."
+      },
+      {
+        "type": "type",
+        "question": "He ___ coffee. (not / like)",
+        "answers": [
+          "doesn't like",
+          "does not like"
+        ],
+        "explanation": "Negativa con he / she / it: doesn’t + verbo base (sin -s)."
+      },
+      {
+        "type": "mcq",
+        "question": "I was born ___ 2004.",
+        "options": [
+          "in",
+          "on",
+          "at",
+          "since"
+        ],
+        "explanation": "in para años y meses; on para días; at para horas."
+      },
+      {
+        "type": "mcq",
+        "question": "There isn’t ___ milk in the fridge.",
+        "options": [
+          "any",
+          "some",
+          "many",
+          "a"
+        ],
+        "explanation": "any en negativas y preguntas; some en afirmativas."
+      },
+      {
+        "type": "type",
+        "question": "She ___ two brothers. (have)",
+        "answers": [
+          "has"
+        ],
+        "explanation": "have → has con he / she / it."
+      },
+      {
+        "type": "mcq",
+        "question": "My laptop is ___ than yours.",
+        "options": [
+          "more expensive",
+          "expensiver",
+          "most expensive",
+          "expensive"
+        ],
+        "explanation": "Adjetivos largos: more + adjetivo + than."
+      }
+    ],
+    "reading": [
+      {
+        "title": "A developer from Cuenca",
+        "passage": "Carlos is a software developer from Cuenca. He works for a small company that makes apps for restaurants. He starts work at 8 a.m. and finishes at 5 p.m. After work, he goes to an English class twice a week because he wants to work for an international company. On weekends, he likes hiking in Cajas National Park with his friends. Last month, he finished his first app on his own: a simple app that helps students organise their homework.",
+        "questions": [
+          {
+            "question": "Why does Carlos study English?",
+            "options": [
+              "He wants to work for an international company.",
+              "His boss tells him to.",
+              "He wants to travel to Cajas.",
+              "He teaches English."
+            ],
+            "explanation": "El texto dice: because he wants to work for an international company."
+          },
+          {
+            "question": "What did Carlos do last month?",
+            "options": [
+              "He finished his first app alone.",
+              "He started a new job.",
+              "He went hiking for the first time.",
+              "He moved to Cuenca."
+            ],
+            "explanation": "on his own = solo, sin ayuda."
+          },
+          {
+            "question": "How often does he go to English class?",
+            "options": [
+              "Twice a week",
+              "Every day",
+              "On weekends",
+              "Once a month"
+            ],
+            "explanation": "twice a week = dos veces por semana."
+          }
+        ]
+      },
+      {
+        "title": "An email from Valeria",
+        "passage": "Hi Sofía,\nThanks for your message! I’m sorry I didn’t answer earlier. I was very busy with exams. Yes, I’d love to come to your birthday party on Saturday. Can I bring my cousin Mateo? He’s visiting me from Loja this week and he doesn’t know anyone here. I can make a chocolate cake if you want.\nSee you soon!\nValeria",
+        "questions": [
+          {
+            "question": "Why didn’t Valeria answer earlier?",
+            "options": [
+              "She was busy with exams.",
+              "She was in Loja.",
+              "She was sick.",
+              "She didn’t see the message."
+            ],
+            "explanation": "I was very busy with exams."
+          },
+          {
+            "question": "What does Valeria offer to do?",
+            "options": [
+              "Make a cake",
+              "Organise the party",
+              "Pick up Sofía",
+              "Buy drinks"
+            ],
+            "explanation": "I can make a chocolate cake = puedo hacer un pastel."
+          }
+        ]
+      },
+      {
+        "title": "Library notice",
+        "passage": "Library opening hours are changing. From Monday 3 March, the university library will open at 7 a.m. instead of 8 a.m. It will close at 9 p.m. from Monday to Friday. On Saturdays, it will open from 9 a.m. to 1 p.m. The library will be closed on Sundays. Students need their ID card to enter.",
+        "questions": [
+          {
+            "question": "What time will the library open on weekdays?",
+            "options": [
+              "7 a.m.",
+              "8 a.m.",
+              "9 a.m.",
+              "1 p.m."
+            ],
+            "explanation": "instead of 8 a.m. = en lugar de las 8."
+          },
+          {
+            "question": "Which sentence is TRUE?",
+            "options": [
+              "You need your ID card to enter.",
+              "It opens on Sundays.",
+              "It closes at 1 p.m. on Fridays.",
+              "It will open later than before."
+            ],
+            "explanation": "Students need their ID card to enter."
+          }
+        ]
+      }
+    ],
+    "listening": [
+      "I study software engineering at the university.",
+      "What time do you usually finish work?",
+      "Last weekend I visited my family.",
+      "Could you speak more slowly, please?",
+      "I’m going to take the exam next year.",
+      "There are three bedrooms in my house.",
+      "She doesn’t like getting up early.",
+      "We had lunch at a small restaurant near the park."
+    ]
+  },
+  "B1": {
+    "vocab": [
+      {
+        "question": "Could you ___ me a favour?",
+        "options": [
+          "do",
+          "make",
+          "give",
+          "take"
+        ],
+        "explanation": "do someone a favour = hacerle un favor a alguien."
+      },
+      {
+        "question": "The manager decided to ___ the meeting until next week.",
+        "options": [
+          "put off",
+          "put on",
+          "take off",
+          "give up"
+        ],
+        "explanation": "put off = posponer."
+      },
+      {
+        "question": "I’m looking ___ to hearing from you.",
+        "options": [
+          "forward",
+          "ahead",
+          "after",
+          "for"
+        ],
+        "explanation": "look forward to + -ing = esperar con ilusión. Muy común al cerrar emails formales."
+      },
+      {
+        "question": "She’s very ___: she always finishes her tasks on time.",
+        "options": [
+          "reliable",
+          "sensitive",
+          "sensible",
+          "lazy"
+        ],
+        "explanation": "reliable = confiable. Sensible = sensato (falso amigo); sensitive = sensible."
+      },
+      {
+        "question": "We must meet the ___: the project is due on Friday.",
+        "options": [
+          "deadline",
+          "timeline",
+          "headline",
+          "guideline"
+        ],
+        "explanation": "deadline = fecha límite."
+      },
+      {
+        "question": "I applied ___ a scholarship to study in Europe.",
+        "options": [
+          "for",
+          "to",
+          "at",
+          "on"
+        ],
+        "explanation": "apply for something (una beca, un trabajo); apply to an institution."
+      },
+      {
+        "question": "Can you figure ___ what the problem is?",
+        "options": [
+          "out",
+          "up",
+          "off",
+          "in"
+        ],
+        "explanation": "figure out = descubrir, entender."
+      },
+      {
+        "question": "“Eventually” means ___.",
+        "options": [
+          "finalmente, con el tiempo",
+          "eventualmente, quizá",
+          "ocasionalmente",
+          "inmediatamente"
+        ],
+        "explanation": "Falso amigo: eventually = al final, con el tiempo."
+      },
+      {
+        "question": "Prices have ___ a lot this year.",
+        "options": [
+          "risen",
+          "raised",
+          "arisen",
+          "rose"
+        ],
+        "explanation": "rise (subir, sin objeto) → rose → risen. Raise necesita objeto: raise prices."
+      },
+      {
+        "question": "My manager gave me some useful ___ on my presentation.",
+        "options": [
+          "feedback",
+          "feedbacks",
+          "advices",
+          "informations"
+        ],
+        "explanation": "feedback, advice e information son incontables: no llevan -s."
+      },
+      {
+        "question": "I can’t ___ the noise from the street.",
+        "options": [
+          "stand",
+          "support",
+          "resist",
+          "hold on"
+        ],
+        "explanation": "can’t stand = no soportar. Support = apoyar (falso amigo)."
+      },
+      {
+        "question": "Please fill ___ the form and send it back by email.",
+        "options": [
+          "in",
+          "up",
+          "on",
+          "off"
+        ],
+        "explanation": "fill in a form = llenar un formulario."
+      },
+      {
+        "question": "He ___ his job because he wanted to travel.",
+        "options": [
+          "quit",
+          "retired",
+          "fired",
+          "dropped"
+        ],
+        "explanation": "quit a job = renunciar. Fire = despedir (lo hace el jefe)."
+      },
+      {
+        "question": "We need to ___ the costs before starting the project.",
+        "options": [
+          "estimate",
+          "guess",
+          "wonder",
+          "suppose"
+        ],
+        "explanation": "estimate = calcular aproximadamente."
+      },
+      {
+        "question": "I need to ___ my English before the exam.",
+        "options": [
+          "brush up on",
+          "brush on",
+          "brush off",
+          "brush up to"
+        ],
+        "explanation": "brush up on = repasar, refrescar un conocimiento."
+      },
+      {
+        "question": "Our team ___ a new feature for the app last month.",
+        "options": [
+          "launched",
+          "threw",
+          "started up",
+          "opened"
+        ],
+        "explanation": "launch = lanzar un producto o función."
+      }
+    ],
+    "grammar": [
+      {
+        "type": "mcq",
+        "question": "I ___ here since 2022.",
+        "options": [
+          "have lived",
+          "live",
+          "am living",
+          "lived"
+        ],
+        "explanation": "since + punto en el tiempo pide presente perfecto: have lived."
+      },
+      {
+        "type": "mcq",
+        "question": "While I ___ dinner, the power went out.",
+        "options": [
+          "was cooking",
+          "cooked",
+          "am cooking",
+          "have cooked"
+        ],
+        "explanation": "Acción larga interrumpida: pasado continuo (was cooking)."
+      },
+      {
+        "type": "type",
+        "question": "If it ___ tomorrow, we’ll stay home. (rain)",
+        "answers": [
+          "rains"
+        ],
+        "explanation": "Primer condicional: if + presente simple, will + verbo."
+      },
+      {
+        "type": "mcq",
+        "question": "If I ___ more money, I would travel around Europe.",
+        "options": [
+          "had",
+          "have",
+          "would have",
+          "will have"
+        ],
+        "explanation": "Segundo condicional: if + pasado simple, would + verbo."
+      },
+      {
+        "type": "mcq",
+        "question": "The developer ___ built this app lives in Quito.",
+        "options": [
+          "who",
+          "which",
+          "where",
+          "whose"
+        ],
+        "explanation": "who para personas, which para cosas."
+      },
+      {
+        "type": "type",
+        "question": "The bug ___ yesterday by the team. (fix, pasiva)",
+        "answers": [
+          "was fixed"
+        ],
+        "explanation": "Pasiva en pasado: was / were + participio."
+      },
+      {
+        "type": "mcq",
+        "question": "I enjoy ___ podcasts on my way to work.",
+        "options": [
+          "listening to",
+          "to listen to",
+          "listen",
+          "listened"
+        ],
+        "explanation": "Después de enjoy va gerundio (-ing)."
+      },
+      {
+        "type": "mcq",
+        "question": "She told me that she ___ tired.",
+        "options": [
+          "was",
+          "is being",
+          "has",
+          "were"
+        ],
+        "explanation": "Estilo indirecto: el presente (I am) retrocede a pasado (she was)."
+      },
+      {
+        "type": "mcq",
+        "question": "He isn’t answering his phone. He ___ be in a meeting.",
+        "options": [
+          "might",
+          "mustn’t",
+          "can’t",
+          "should"
+        ],
+        "explanation": "might = posibilidad: quizá está en una reunión."
+      },
+      {
+        "type": "mcq",
+        "question": "I ___ my homework, so I can go out now.",
+        "options": [
+          "have already finished",
+          "already finish",
+          "finished already have",
+          "am already finishing"
+        ],
+        "explanation": "Resultado presente de una acción terminada: presente perfecto."
+      },
+      {
+        "type": "mcq",
+        "question": "I decided ___ English every day.",
+        "options": [
+          "to practise",
+          "practising",
+          "practise",
+          "to practising"
+        ],
+        "explanation": "decide + to + infinitivo. (Practise es verbo en inglés británico; practice es el sustantivo)."
+      },
+      {
+        "type": "mcq",
+        "question": "___ it was raining, we went for a walk.",
+        "options": [
+          "Although",
+          "However",
+          "Despite",
+          "Because"
+        ],
+        "explanation": "Although + oración completa. However va entre oraciones; despite + sustantivo o -ing."
+      },
+      {
+        "type": "type",
+        "question": "This app ___ by millions of people every day. (use, pasiva)",
+        "answers": [
+          "is used"
+        ],
+        "explanation": "Pasiva en presente: am / is / are + participio."
+      },
+      {
+        "type": "mcq",
+        "question": "When I arrived, the class ___ already started.",
+        "options": [
+          "had",
+          "has",
+          "was",
+          "have"
+        ],
+        "explanation": "Pasado perfecto (had + participio) para algo anterior a otra acción pasada."
+      },
+      {
+        "type": "mcq",
+        "question": "You ___ wear a suit to the interview, but it’s a good idea.",
+        "options": [
+          "don’t have to",
+          "mustn’t",
+          "can’t",
+          "shouldn’t to"
+        ],
+        "explanation": "don’t have to = no es necesario. Mustn’t = está prohibido."
+      },
+      {
+        "type": "mcq",
+        "question": "This is the city ___ I was born.",
+        "options": [
+          "where",
+          "which",
+          "who",
+          "what"
+        ],
+        "explanation": "where para lugares en oraciones de relativo."
+      }
+    ],
+    "reading": [
+      {
+        "title": "Working from home",
+        "passage": "Working from home has become common for many software developers. Supporters say it saves time, because people don’t have to travel to an office, and it allows them to organise their own schedule. However, some workers feel lonely and find it difficult to separate work from their personal life. A recent survey of 2,000 developers found that most of them prefer a hybrid model: two or three days at home and the rest in the office. Interestingly, younger developers were more likely than older ones to want to go to the office, mainly because they wanted to learn from more experienced colleagues.",
+        "questions": [
+          {
+            "question": "What is the main idea of the text?",
+            "options": [
+              "Remote work has pros and cons, and many developers prefer a mix.",
+              "Remote work is always better.",
+              "Developers hate going to the office.",
+              "Older developers want to work at the office."
+            ],
+            "explanation": "El texto presenta ventajas, desventajas y la preferencia por el modelo híbrido."
+          },
+          {
+            "question": "Why do younger developers want to go to the office?",
+            "options": [
+              "To learn from more experienced colleagues",
+              "To save money",
+              "Because their homes are small",
+              "Because they can’t use computers at home"
+            ],
+            "explanation": "mainly because they wanted to learn from more experienced colleagues."
+          },
+          {
+            "question": "Which word could replace “However” in the text?",
+            "options": [
+              "Nevertheless",
+              "Therefore",
+              "Because",
+              "Moreover"
+            ],
+            "explanation": "However y nevertheless introducen un contraste. Therefore = por lo tanto."
+          }
+        ]
+      },
+      {
+        "title": "A scholarship announcement",
+        "passage": "The Global Futures Scholarship offers full tuition, a monthly allowance and one return flight to students from Latin America who want to do a master’s degree in Europe. To apply, you need a bachelor’s degree, or proof that you will finish it before the programme starts. You also need an English certificate at B2 level or higher, two reference letters and a motivation letter of no more than two pages. Work experience is not required, but applicants with relevant experience may receive extra points. The deadline is 15 January, and late applications will not be accepted.",
+        "questions": [
+          {
+            "question": "Which of these is NOT required?",
+            "options": [
+              "Work experience",
+              "An English certificate",
+              "Reference letters",
+              "A motivation letter"
+            ],
+            "explanation": "Work experience is not required: no es obligatoria, solo suma puntos."
+          },
+          {
+            "question": "Can you apply before finishing your bachelor’s degree?",
+            "options": [
+              "Yes, if you will finish it before the programme starts.",
+              "No, never.",
+              "Only with work experience.",
+              "Only after 15 January."
+            ],
+            "explanation": "or proof that you will finish it before the programme starts."
+          },
+          {
+            "question": "In this text, “allowance” means…",
+            "options": [
+              "dinero periódico para gastos",
+              "un permiso especial",
+              "tolerancia",
+              "un descuento"
+            ],
+            "explanation": "allowance = asignación o mensualidad para gastos."
+          }
+        ]
+      },
+      {
+        "title": "Lucía in Lisbon",
+        "passage": "When Lucía moved to Lisbon for her studies, she didn’t speak a word of Portuguese. During the first weeks she relied on English, but she soon realised that she was missing out on conversations with her neighbours. So she joined a free language exchange at the university: one hour in Portuguese, one hour in Spanish. At first she felt embarrassed about her mistakes, but her partner, Tiago, made her feel comfortable. Six months later, she was able to give a short presentation in Portuguese.",
+        "questions": [
+          {
+            "question": "Why did Lucía join the language exchange?",
+            "options": [
+              "She felt she was missing conversations with her neighbours.",
+              "Her teacher made her.",
+              "She wanted to teach Spanish professionally.",
+              "She failed an exam."
+            ],
+            "explanation": "she realised that she was missing out on conversations with her neighbours."
+          },
+          {
+            "question": "How did Lucía feel at the beginning?",
+            "options": [
+              "Embarrassed",
+              "Confident",
+              "Bored",
+              "Angry"
+            ],
+            "explanation": "embarrassed = avergonzada (no “embarazada”, que es pregnant)."
+          }
+        ]
+      }
+    ],
+    "listening": [
+      "I’ve been studying English for about two years.",
+      "If I get the scholarship, I’ll move to Europe next year.",
+      "The meeting was postponed because the manager was ill.",
+      "Could you tell me where the nearest station is?",
+      "She said she would send the report by Friday.",
+      "Although it was difficult, I finished the project on time.",
+      "The app was downloaded more than ten thousand times.",
+      "I’m not used to working late at night."
+    ]
+  },
+  "B2": {
+    "vocab": [
+      {
+        "question": "The results of the study were ___: researchers couldn’t draw a clear conclusion.",
+        "options": [
+          "inconclusive",
+          "outstanding",
+          "compelling",
+          "consistent"
+        ],
+        "explanation": "inconclusive = no concluyente."
+      },
+      {
+        "question": "The government aims to ___ the gap between rural and urban areas.",
+        "options": [
+          "bridge",
+          "build",
+          "cross",
+          "join"
+        ],
+        "explanation": "bridge the gap = reducir la brecha."
+      },
+      {
+        "question": "Her argument was very ___; it convinced everyone in the room.",
+        "options": [
+          "compelling",
+          "compulsive",
+          "complacent",
+          "complicated"
+        ],
+        "explanation": "compelling = convincente, contundente."
+      },
+      {
+        "question": "We need to take ___ account the cost of maintenance.",
+        "options": [
+          "into",
+          "in",
+          "on",
+          "to"
+        ],
+        "explanation": "take into account = tener en cuenta."
+      },
+      {
+        "question": "The new policy had a significant ___ on small businesses.",
+        "options": [
+          "impact",
+          "affect",
+          "damage",
+          "result"
+        ],
+        "explanation": "impact (sustantivo) on. Affect es verbo; effect es el sustantivo."
+      },
+      {
+        "question": "In my opinion, the benefits of AI far ___ the risks.",
+        "options": [
+          "outweigh",
+          "overcome",
+          "overtake",
+          "outrun"
+        ],
+        "explanation": "outweigh = superar en peso o importancia."
+      },
+      {
+        "question": "The professor asked us to ___ on our learning process.",
+        "options": [
+          "reflect",
+          "reflex",
+          "mirror",
+          "think"
+        ],
+        "explanation": "reflect on = reflexionar sobre."
+      },
+      {
+        "question": "Despite the challenges, the team managed to ___ the project on schedule.",
+        "options": [
+          "deliver",
+          "give",
+          "carry",
+          "bring"
+        ],
+        "explanation": "deliver a project = entregar un proyecto."
+      },
+      {
+        "question": "“Nevertheless” is closest in meaning to ___.",
+        "options": [
+          "nonetheless",
+          "therefore",
+          "furthermore",
+          "meanwhile"
+        ],
+        "explanation": "Ambos significan “sin embargo”."
+      },
+      {
+        "question": "The evidence ___ that young people use social media more than ever.",
+        "options": [
+          "suggests",
+          "pretends",
+          "insists",
+          "argues to"
+        ],
+        "explanation": "suggest = indicar, sugerir. Pretend = fingir (falso amigo)."
+      },
+      {
+        "question": "Many students struggle to ___ a balance between work and study.",
+        "options": [
+          "strike",
+          "hit",
+          "put",
+          "take"
+        ],
+        "explanation": "strike a balance = encontrar un equilibrio."
+      },
+      {
+        "question": "The proposal was rejected due to a ___ of funding.",
+        "options": [
+          "lack",
+          "miss",
+          "fault",
+          "need"
+        ],
+        "explanation": "lack of = falta de."
+      },
+      {
+        "question": "Online learning has become ___ in higher education.",
+        "options": [
+          "widespread",
+          "wideness",
+          "broadly",
+          "large"
+        ],
+        "explanation": "widespread = extendido, generalizado."
+      },
+      {
+        "question": "The researchers carried ___ an experiment with 200 participants.",
+        "options": [
+          "out",
+          "on",
+          "off",
+          "through"
+        ],
+        "explanation": "carry out = llevar a cabo."
+      },
+      {
+        "question": "The number of users ___ from 2,000 to 15,000 in a single year.",
+        "options": [
+          "soared",
+          "sank",
+          "dropped",
+          "declined"
+        ],
+        "explanation": "soar = dispararse, subir mucho. Útil para describir gráficos."
+      },
+      {
+        "question": "Her proposal was ___ by the committee, so she started the project immediately.",
+        "options": [
+          "approved",
+          "approached",
+          "appointed",
+          "applied"
+        ],
+        "explanation": "approve = aprobar."
+      }
+    ],
+    "grammar": [
+      {
+        "type": "mcq",
+        "question": "If I had studied harder, I ___ the exam.",
+        "options": [
+          "would have passed",
+          "would pass",
+          "will pass",
+          "had passed"
+        ],
+        "explanation": "Tercer condicional: if + had + participio, would have + participio."
+      },
+      {
+        "type": "mcq",
+        "question": "I wish I ___ more time to practise speaking.",
+        "options": [
+          "had",
+          "have",
+          "will have",
+          "am having"
+        ],
+        "explanation": "wish + pasado simple para deseos sobre el presente."
+      },
+      {
+        "type": "mcq",
+        "question": "Not only ___ the exam, but she also got a scholarship.",
+        "options": [
+          "did she pass",
+          "she passed",
+          "she did pass",
+          "passed she"
+        ],
+        "explanation": "Inversión tras Not only: auxiliar + sujeto + verbo."
+      },
+      {
+        "type": "type",
+        "question": "The new library ___ at the moment. (build, pasiva)",
+        "answers": [
+          "is being built"
+        ],
+        "explanation": "Pasiva en presente continuo: is / are being + participio."
+      },
+      {
+        "type": "mcq",
+        "question": "The company is said ___ more than 500 employees.",
+        "options": [
+          "to have",
+          "having",
+          "has",
+          "that has"
+        ],
+        "explanation": "Pasiva de reporte: subject + is said + to + infinitivo."
+      },
+      {
+        "type": "mcq",
+        "question": "By the time we arrived, the presentation ___.",
+        "options": [
+          "had already started",
+          "already started",
+          "has already started",
+          "was already starting"
+        ],
+        "explanation": "Acción anterior a otra en el pasado: pasado perfecto."
+      },
+      {
+        "type": "mcq",
+        "question": "I’ve been ___ this bug for three hours and I still can’t find it.",
+        "options": [
+          "trying to fix",
+          "tried to fix",
+          "try fixing",
+          "tries to fix"
+        ],
+        "explanation": "Presente perfecto continuo: have been + -ing."
+      },
+      {
+        "type": "mcq",
+        "question": "___ having little experience, he got the job.",
+        "options": [
+          "Despite",
+          "Although",
+          "However",
+          "Even though"
+        ],
+        "explanation": "Despite + sustantivo o -ing. Although necesita oración completa."
+      },
+      {
+        "type": "type",
+        "question": "I’d rather you ___ anyone about this. (not / tell)",
+        "answers": [
+          "didn't tell",
+          "did not tell"
+        ],
+        "explanation": "would rather + sujeto + pasado simple."
+      },
+      {
+        "type": "mcq",
+        "question": "What I need ___ more practice with listening.",
+        "options": [
+          "is",
+          "are",
+          "it is",
+          "that is"
+        ],
+        "explanation": "Oración hendida: What + sujeto + verbo + is + …"
+      },
+      {
+        "type": "mcq",
+        "question": "She had her laptop ___ last week.",
+        "options": [
+          "repaired",
+          "repair",
+          "to repair",
+          "repairing"
+        ],
+        "explanation": "have something done = mandar a hacer algo."
+      },
+      {
+        "type": "mcq",
+        "question": "Had I known about the deadline, I ___ earlier.",
+        "options": [
+          "would have started",
+          "would start",
+          "had started",
+          "will start"
+        ],
+        "explanation": "Tercer condicional con inversión: Had I known = If I had known."
+      },
+      {
+        "type": "mcq",
+        "question": "The report, ___ was published in 2024, shows a clear trend.",
+        "options": [
+          "which",
+          "that",
+          "what",
+          "who"
+        ],
+        "explanation": "En oraciones explicativas (entre comas) no se usa that, solo which."
+      },
+      {
+        "type": "mcq",
+        "question": "It’s high time we ___ a decision.",
+        "options": [
+          "made",
+          "make",
+          "will make",
+          "have made"
+        ],
+        "explanation": "It’s high time + pasado simple."
+      },
+      {
+        "type": "type",
+        "question": "If she ___ the offer last year, she would be living in Madrid now. (accept)",
+        "answers": [
+          "had accepted",
+          "'d accepted"
+        ],
+        "explanation": "Condicional mixto: pasado (had + participio) con resultado presente."
+      },
+      {
+        "type": "mcq",
+        "question": "The more you practise, ___ you become.",
+        "options": [
+          "the more confident",
+          "more confident",
+          "the most confident",
+          "the confident"
+        ],
+        "explanation": "Estructura the + comparativo, the + comparativo."
+      }
+    ],
+    "reading": [
+      {
+        "title": "English-taught programmes in Europe",
+        "passage": "Over the past decade, universities across Europe have expanded the number of programmes taught entirely in English. Proponents argue that this attracts international talent and prepares local students for a globalised labour market. Critics, however, warn that the shift may undermine the use of national languages in academic contexts, particularly in scientific fields where specialised terminology is still being developed. A further concern is the quality of instruction: lecturers who are not fully proficient in English may simplify their content, which could lower academic standards. Nevertheless, most institutions appear to be addressing these issues by offering language training to staff rather than abandoning English-medium instruction altogether.",
+        "questions": [
+          {
+            "question": "What is the writer’s main purpose?",
+            "options": [
+              "To present arguments for and against English-taught programmes",
+              "To persuade universities to stop teaching in English",
+              "To explain how to learn English",
+              "To criticise international students"
+            ],
+            "explanation": "El texto expone proponents (a favor) y critics (en contra) con tono neutral."
+          },
+          {
+            "question": "“Undermine” is closest in meaning to…",
+            "options": [
+              "weaken",
+              "support",
+              "replace",
+              "explain"
+            ],
+            "explanation": "undermine = debilitar, socavar."
+          },
+          {
+            "question": "How are most institutions responding?",
+            "options": [
+              "By training staff’s language skills",
+              "By abandoning English programmes",
+              "By hiring only native speakers",
+              "By reducing programmes"
+            ],
+            "explanation": "by offering language training to staff."
+          }
+        ]
+      },
+      {
+        "title": "Sleep and learning",
+        "passage": "Neuroscientists have long suspected that sleep plays a crucial role in consolidating memories. In one widely cited experiment, participants learned a list of word pairs in the evening. Half of them then slept normally, while the other half stayed awake. The following day, those who had slept recalled significantly more word pairs. Researchers believe that, during deep sleep, the brain replays recently acquired information and transfers it to long-term storage. For language learners, the implication is clear: reviewing vocabulary shortly before going to bed, and getting enough sleep, may be more effective than studying late into the night.",
+        "questions": [
+          {
+            "question": "What happened to the participants who slept?",
+            "options": [
+              "They remembered more word pairs.",
+              "They forgot more words.",
+              "There was no difference.",
+              "They learned faster in the evening."
+            ],
+            "explanation": "those who had slept recalled significantly more word pairs."
+          },
+          {
+            "question": "What does the writer recommend to language learners?",
+            "options": [
+              "Review vocabulary before bed and sleep enough",
+              "Study late into the night",
+              "Avoid studying in the evening",
+              "Sleep during the day"
+            ],
+            "explanation": "reviewing vocabulary shortly before going to bed, and getting enough sleep."
+          }
+        ]
+      },
+      {
+        "title": "Who builds open-source software?",
+        "passage": "Many people assume that open-source software is built only by unpaid volunteers. In reality, a large proportion of contributions to major open-source projects comes from employees of technology companies, who are paid to maintain code their employers depend on. This arrangement benefits both sides: companies gain influence over tools they rely on, while projects receive steady, professional contributions. Yet it also raises questions about independence. If a single corporation dominates a project, it may steer development towards its own priorities, potentially at the expense of the wider community.",
+        "questions": [
+          {
+            "question": "Which common belief does the text challenge?",
+            "options": [
+              "That open source is built only by volunteers",
+              "That companies don’t use open source",
+              "That open-source code is low quality",
+              "That volunteers are paid"
+            ],
+            "explanation": "Many people assume… In reality… El texto corrige esa creencia."
+          },
+          {
+            "question": "What concern does the writer raise?",
+            "options": [
+              "One company might control the project’s direction.",
+              "Software quality is falling.",
+              "Volunteers earn too much.",
+              "Projects receive too few contributions."
+            ],
+            "explanation": "it may steer development towards its own priorities."
+          }
+        ]
+      }
+    ],
+    "listening": [
+      "Had I known about the deadline, I would have applied earlier.",
+      "The findings suggest that remote work can increase productivity.",
+      "Despite the challenges, the project was delivered on schedule.",
+      "It is widely believed that learning a language improves memory.",
+      "I would rather focus on the advantages than the drawbacks.",
+      "The number of international students has risen considerably.",
+      "In my view, universities should invest more in practical training.",
+      "Not only did she pass the exam, but she also got a scholarship."
+    ]
+  }
+}
